@@ -1,0 +1,1573 @@
+\documentclass{article}
+\usepackage{physics}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[legalpaper, margin=1in]{geometry}
+\usepackage{ytableau}
+\usepackage{tikz-cd} 
+\usepackage{marginnote}
+\usepackage{mathrsfs}
+\usepackage{dsfont}
+\usepackage{hyperref}
+\usepackage{mathtools} 
+ 
+
+\newtheorem{theorem}{Theorem}
+\numberwithin{theorem}{section}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem*{remark}{Remark}
+\newtheorem*{example}{Example}
+\newtheorem{observation}{Observation}
+\newtheorem{claim}{Claim}
+
+ % for enumeration under each section 
+
+
+
+\renewcommand{\d}[1]{\ensuremath{\operatorname{d}\!{#1}}}
+\newcommand{\mmodels}{\mathrel{|\mkern-3.5mu{\equiv}}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\1}{\mathds{1}}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\vertiii}[1]{{\left\vert\kern-0.25ex\left\vert\kern-0.25ex\left\vert #1 
+    \right\vert\kern-0.25ex\right\vert\kern-0.25ex\right\vert}}
+
+\newcommand{\Hp}{\mathbb{H}}
+
+\DeclareMathOperator{\Alt}{Alt}
+\DeclareMathOperator{\pr}{pr}
+\DeclareMathOperator{\Tor}{Tor}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\Set}{Set} 
+\DeclareMathOperator{\Der}{Der}
+\DeclareMathOperator{\Mult}{Mult}
+\DeclareMathOperator{\vspan}{span}
+\DeclareMathOperator{\supp}{supp}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\fdeg}{deg}
+\DeclareMathOperator{\topint}{int}
+\DeclareMathOperator{\image}{im}
+
+
+\begin{document}
+
+\tableofcontents 
+    
+\section{Manifolds }
+
+
+
+\begin{definition}
+    A topological manifold $M$ is a second countable, Hausdorff space that is locally euclidean, i.e. $\forall p \in M$: 
+    \begin{enumerate}
+        \item $\phi: U \to \phi(U) \subset \R^n$
+    \end{enumerate}
+\end{definition}
+
+
+\begin{remark}
+    One of the reasons we talk about smooth structures on a manifold $X$, i.e. an equivalence class $[\mathscr{A}]$ of smooth atlases $\mathscr{A}= \{ (U_\alpha, \phi_\alpha) \}_{\alpha} $ is because we are interested in $C^\infty(M)$, i.e. the smooth functions $f: M \to \R$. The smooth functions are now completely determined by the smooth structure alone, and does not depend on the specific representative. So if $\mathscr{A}, \mathscr{B}$ belong to the same smooth structure, the smooth maps with respect to those, are exactly the same.   
+\end{remark}
+
+About the "locally euclidean" statement:
+There are two definitions 
+\begin{definition}\label{locally_euclidean}
+    A topological manifold of dimension $n$ is a second countable, Hausdorff space $(X,\tau)$ such that one of two equivalent statements hold 
+    \begin{enumerate}
+        \item $\forall p \in X, \exists U \in \tau$ and $\exists \phi: U \to \phi(U) \subset \R^n $ such that $\phi$ is homeomorphism. 
+        \item $\forall p \in X, \exists U \in \tau$ and $\exists \phi: U \to \R^n$ such that $\phi$ is homeomorphism. 
+    \end{enumerate}
+\end{definition}
+To show that the two definitions are equivalent first consider 
+\begin{lemma}
+    Let $V\subset \R^n$ be an open subset. Let $p \in V$. Then there is an open subset $U\subset V$, $p\in U$ such that $U$ is homeomorphic to $\R^n$. 
+\end{lemma}
+\begin{proof}
+    Notice that a base for $\mathcal{O}(\R^n)$ is given by the open balls. Hence since $V$ is open there exists $r>0$ such that $p\in B_r(p) \subset V$. The ball $B_r(p)$ is now homeomorphic to $\R^n$ via the map $x \mapsto \frac{x}{r- \norm{x}}$.  
+\end{proof}
+Now 
+\begin{proof}
+    $(2) \Rightarrow (1)$ is clear. \\
+    $(1) \Rightarrow (2)$ Let $p \in X$. By $(1)$ there is $U\in \tau$ and $\phi$ homeomorphism. By the above lemma there is homeomorphism $\varphi: V \to \R^n$ with $\phi(p) \in V$. Then the composite 
+    \[ \varphi \circ \phi : U \cap \phi^{-1}(V) \to \R^n \]
+    is also a homeomorphism, where clearly due to continuity of $\phi$, the set $U\cap \phi^{-1}(V)$ is open in $X$ and also contains $p$. 
+\end{proof}
+
+\begin{lemma}
+Let $M$ be manifold. Then $M$ is a locally compact Hausdorff space. 
+\end{lemma}
+
+\begin{lemma}
+    Let $M$ be manifold. Then there is a countable basis for $M$ consisting of precompact sets. 
+\end{lemma}
+\begin{proof}
+    Let $p\in M$ and $U\subset M$ any open neighborhood of $p$. As $M$ is locally compact, there is a compact neighborhood $K$ around $p$ and therefore some open neighborhood $V\subset K$. Then $V\cap U \subset K $ is an open neighborhood, and since $M$ is Hausdorff, the compact $K$ is also closed. Therefore $\overline{V \cap U} \subset K$ and as a closed set of a compact space also compact. Therefore $V\cap U$ is precompact and clearly $V\cap U \subset U$. Hence precompact sets form a basis. Now, as $M$ is second countable there is countable basis, but each basis element contains a precompact set and so the basis of precompact sets can be chosen to be countable.
+\end{proof}
+
+\subsection{Smooth manifolds}
+
+\begin{lemma}(Gluing lemma for smooth maps)\\
+    Let $\{ U_\alpha \} $ be an open cover of $M$ and $f_\alpha : U_\alpha \to N$ be smooth such that 
+    \[ f_\alpha |_{U_\alpha \cap U_\beta} = f_\beta|_{U_\alpha \cap U_\beta} \]
+    Then there exists a unique smooth map $f: M \to N$ such that $f|_{U_\alpha} = f_\alpha$. 
+    
+\end{lemma}
+
+\subsection{Smooth manifolds with boundary}
+\begin{definition}
+    Define 
+    \[ \Hp^n := \{ x = (x_1, \dots, x_n) \in \R^n | x_n \geq 0 \} \]
+    Then 
+    \[ \partial \Hp^n = \{ x = (x_1, \dots, x_n) \in \R^n | x_n = 0 \} \]
+    \[ \topint \Hp^n = \{ x = (x_1, \dots, x_n) \in \R^n | x_n > 0 \} \]
+\end{definition}
+
+\begin{definition}
+    A smooth manifold with boundary is a second countable Hausdorff space $M$ such that around every point $p \in M$ there is chart $(U_i, \phi_i)$ with 
+    \[ \phi_i : U_i \to \phi_i(U_i) \subset \Hp^n \]
+    are homeomorphisms and $\phi_j \circ \phi_i^{-1} $ is diffeomorphism wherever defined. 
+\end{definition}
+\begin{definition}
+    $f : U \to N$ where $U \subset \Hp^n$ is said to be smooth if it admits a smooth extension to an open set $\tilde{U} \in \mathcal{T}_{\R^n}$, with $U \subset \tilde{U}$. 
+\end{definition}
+
+When $M$ is manifold with boundary 
+\[ \partial M := \{ p \in M| \exists (U_i, \phi_i) : \phi_i(p) \in \partial \Hp^n \} \]
+\[ \topint M := \{ p \in M| \exists (U_i, \phi_i) : \phi_i(p) \in \topint \Hp^n \} \]
+
+\begin{lemma}
+    $\partial M, \topint M$ are well defined and 
+    \[ M = \partial M \cup \topint M \]
+    Furthermore, $\partial M$ and $\topint M$ are $n-1 $ and $n$ dimensional manifolds in the usual sense. 
+\end{lemma}
+\begin{proof}
+    In case of topological manifolds with boundary, the proof is involved and uses de Rham cohomology. For smooth manifolds: 
+\end{proof}
+
+
+
+\subsection{Partition of unity}
+\begin{definition}
+    A topological space $X$ is \textbf{compact} if every open covering has a finite subcover. 
+\end{definition}
+
+\begin{definition}
+    Let $\{ U_i \}$ be a cover of $X$. 
+    \begin{enumerate}
+        \item the cover is locally finite if $\forall x \in X$ there is open n'hood $U\in \mathcal{N}_x$ such that $|\{ i | U\cap U_i \neq \emptyset \} | < \infty $. 
+        \item another cover  $\{ V_j \}$ is a refinment of the cover $\{ U_i \}$  if \[ \forall j \exists i : V_j \subset U_i \] 
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    A topological space $X$ is \textbf{paracompact} if every open covering has a locally finite open refinement. 
+\end{definition}
+
+
+\begin{lemma}
+    Let $M$ be a a second countable, locally compact Hausdorff space.  Then there is an exhaustion of compact sets, i.e. a countable sequence of compact sets $K_j \subset M $ such that $\forall j \in \N$ 
+    \begin{enumerate}
+        \item $\overline{K_j} \subset K_{j+1}$
+        \item $ M = \bigcup_{j \in \N} K_j $ 
+    \end{enumerate}
+\end{lemma}
+
+\begin{proof}
+    As $M$ is locally compact Hausdorff, is has a basis consisting of precompact sets. Denote $\{ U_j\}_{j \in \N}$ these precompact basis sets. Now we construct the sequence. Set $K_1 = \overline{U_1}$. Assuming via induction that we have constructed such sets until $K_k$, 
+    As $K_k$ is compact, and the $U_j$ cover $M$, there is finite subcover 
+    \[ K_k \subset U_{1} \cup U_2 \cup \dots \cup U_{m_k}\]
+    Define then with $N_k = \max \{k+1, m_k\}$ 
+    \[ K_{k+1} = \overline{U}_1  \cup  \overline{U}_2 \cup \dots \overline{U}_{N_k}\]
+    which is clearly compact and whose interior by construction contains $K_k$ and $U_{k+1} \subset K_{k+1}$ such that 
+    \[ M = \bigcup_{j \in \N} U_j \subset \bigcup_{j \in \N } K_j \subset M \]
+    proving the rest of the assertion. 
+\end{proof}
+
+
+\begin{lemma}
+    Let $M$ be manifold and $\emptyset \neq U\subset M$ open. Then there are $W,V \subset M$ open such that 
+    \[ \overline{W} \subset V \subset U \]
+    and $\overline{W}$ is compact. 
+\end{lemma}
+\begin{proof}
+    Choose $x \in U$ and some chart $(V, \phi)$ around $x$. Then $\phi(U \cap V) \subset \R^n$ is open around $\phi(x)$. By definition of openness in $\R^n$ there is $r >0 $ such that 
+    \[ B_{r/3}(\phi(x)) \subset B_{r}(\phi(x)) \subset \phi(U \cap V)\]
+    Then define $W = \phi^{-1}(B_{r/3}(\phi(x))), V = \phi^{-1}(B_{r}(\phi(x)))$. Clearly $\overline{B_{r/3}(\phi(x))} \subset B_r(\phi(x))$, hence with continuity from $\phi$ and Hausdorffness from $M$ we get 
+    \[ \overline{W} \subset \phi^{-1}(\overline{B_{r/3}(\phi(x))}) \subset V \]
+    Finally $\overline{W}$ is compact as closed subset of the compact set $\phi^{-1}(\overline{B_{r/3}(\phi(x))})$. 
+\end{proof}
+
+
+\begin{lemma}
+    Let $M$ be a manifold and $\mathcal{U} = \{ U_i \}$ be any open cover of $M$. Then there are two countable, open, locally finite refinements $\mathcal{W}, \mathcal{V}$ such that 
+    \[ \forall W \in \mathcal{W}:  \exists V \in \mathcal{V} : \overline{W} \subset V\]
+    and $\forall W \in \mathcal{W}: \overline{W}$ is compact. In particular, any smooth manifold $M$ is paracompact. 
+\end{lemma}
+
+\begin{proof}
+    From the previous lemma, take the exahustion $\{ G_k \}_{k\in \N}$ of relatively compact sets such that 
+    \[ \overline{G}_k \subset G_{k+1} \]  
+    Consider for $k \in \N$ the compact set $\overline{G}_k \setminus G_{k-1} \subset G_{k+1} \setminus G_{k-1} \subset G_{k+1} \setminus \overline{G}_{k-2}$ (If $k \leq 2$ then just consider the sets without set difference). For each $x \in \overline{G}_k \setminus G_{k-1}$ there is $U_i \in \mathcal{U}$ such that $x \in U_i$. Then consider the open n'hood 
+    \[ U_i \cap G_{k+1} \cap (M\setminus \overline{G}_{k-2}) \in \mathcal{N}_x \]
+    By the previous lemma there are $W_x,V_x$ such that 
+    \[ \overline{W}_x \subset V_x \subset U_i \cap (G_{k+1}\setminus \overline{G}_{k-2}) \subset U_i \]
+    Then the compact set has a finite cover of the cover by these open sets: 
+    \[ \overline{G}_k \setminus G_{k-1} \subset \bigcup_{i_k=1}^{l_k} W_{x_{i_k}} \subset \bigcup_{i_k=1}^{l_k} V_{x_{i_k}}\subset G_{k+1} \setminus \overline{G}_{k-2}\]
+    Let $\mathcal{W}, \mathcal{V}$ be the thusly obtained subsets, i.e. 
+    \[ \mathcal{W} = \{ W_{i_k} | 1 \leq i_k \leq l_k, k \in \N \} \]
+     By construction they are clearly a refinement, open and countable. Now let $x \in M$ arbitrary. Then there is $k \in \N, i_k \leq l_k $ such that $x \in V_{x_{i_k}} \subset G_{k+1}\setminus \overline{G}_{k-2}$. Then for any $m \geq k+3, i_m \leq l_m $ it holds that 
+     \[ V_{x_{i_m}} \subset G_{m+1}\setminus \overline{G}_{m-2} \subset G_{m+1} \setminus G_{m-2} \subset G_{m+1} \setminus G_{k+1} \]
+     i.e. $V_{x_{i_k}} \cap V_{x_{i_m}} = \emptyset $. Thus one sees that the chosen neighborhood of $x$ intersects maximally $\sum_{j=1}^{k+2}l_j  \leq \infty$ many covering sets, i.e. is locally finite. 
+\end{proof}
+
+\begin{definition}
+    Define 
+    \begin{align*}
+        f_1: \R \to \R, f_1(x) &= \begin{cases}
+            e^{1/x} \quad x >0 \\ 0 \quad x\leq 0 
+        \end{cases} \\
+        f_2: \R \to \R, f_2(x) &= \frac{f_1(x)}{f_1(x) + f_1(1-x)}\\
+        f_3: \R^n \to \R, f_3(x) &= f_2(2-\norm{x})\\
+    \end{align*} 
+    $f_1$ is a smooth function, $f_2$ interpolates smoothly between 0 and 1. $f_3$ is a function that $f_3|_{B_1(0)} =1$ and $\supp(f_3) = \overline{B_2(0)}$. 
+\end{definition}
+
+\begin{lemma}
+    Let $M$ be a $n$ dimensional smooth manifold and $K\subset M$ compact and $U\subset M$ open such that $K \subset U$. Then there is a smooth function $\rho: M \to \R$ such that $\varphi|_K =1$ and $\supp(\rho) \subset U$. 
+\end{lemma}
+\begin{proof}
+    Let $p\in K$. As $M$ is a smooth manifold there is a chart $(\phi_p,U_p )$ around that point. Without loss of generality we can assume that $U_p \subset U$ and $\overline{B_3(0)} \subset V$ (compare with lemma 1.1).
+    Define $\tilde{U}_p := \phi_p^{-1}(B_1(0))$ and construct 
+    \[ f_p : M \to \R, f_p(x) = \begin{cases}
+        f_3(\phi_p(x)) \quad x \in U_p \\ 0 \quad x \notin U_p 
+    \end{cases}\] 
+    We can see that $f_p|_{\tilde{U}_p} = 1 $ and that $\text{supp}(f_p) \subset U_p$. The latter fact is because 
+    \[ \{ x \in M| f_p(x) \neq 0 \} = \phi_p^{-1}(B_2(0))\subset \phi_p^{-1}(\overline{B_3(0)}) \subset U_p  \]
+    As $\phi_p$ is continuous, $\phi_p^{-1}(\overline{B_3(0)})$ is closed and so the support of $f_p$ is contained in $U_p$. Smoothness can be checked by noting that $\phi_p\circ \psi^{-1}$ is smooth and checking the "boundaries". Hence by this constructino for every point $p\in M$ we have a cover 
+    \[ K \subset  \bigcup_{p \in K} \tilde{U}_p \]
+    As $K$ is compact we have finite subcover 
+    \[ K \subset \bigcup_{i=1}^N \tilde{U}_{p_i}\]
+    Define the smooth function 
+    \[ \psi: M \to \R, \psi(x) = \sum_{i=1}^N  f_{p_i}(x)\]
+    For this function it is clear that $\psi|_{K} \geq  1 $ and that 
+    \[ \text{supp}(\psi) = \bigcup_{i=1}^N \text{supp}(f_{p_i})  \subset \bigcup_{i=1}^N U_{p_i} \subset U \]
+    Finally, $\varphi := f_2\circ \psi $ satisfies the requirements for the wanted function, i.ee $\varphi|_{K} = 1$ and $\text{supp}(\varphi) \subset U$. 
+\end{proof}
+
+\begin{definition}
+    Let $\{ U_i \}$ be an open cover of $M$. A \textbf{partition of unity} subordinate to that cover is a collection $\{ \rho_i \}$ of maps $\rho_i : M \to \R$ such that 
+    \begin{enumerate}
+        \item $\supp(\rho_i)\subset U_i $
+        \item $0 \leq \rho \leq 1  $ and $\sum_i \rho_i = 1$. 
+        \item 
+    \end{enumerate}
+    in particular  $\{ \supp(\rho_i) \}$ is a locally finite refinement of $\{ U_i \}$. 
+\end{definition}
+\begin{proposition}
+    Let $M$ be smooth manifold and $\{ U_i \}$ an open cover. Then there is a partition of unity subordinate to that cover. 
+\end{proposition}
+
+\begin{proof}
+    Take open local refinemens $\mathcal{W}, \mathcal{V}$ of $\mathcal{U}$ like in the previous lemma. We get by previous lemma smooth maps 
+    \[ \tilde{f}_j : M \to \R \]
+    \[ \supp(\tilde{f}_j) \subset V_j, \tilde{f}_j|_{\overline{W_j}} = 1 \]
+    Define $\tilde{f} = \sum_{j} \tilde{f}_j $. Clearly as $\mathcal{W}$ covers $X$ we see that $\tilde{f} >0$. Hence define 
+    \[ f_j = \tilde{f}_j  / \tilde{f}  \]
+    Finally define 
+    \[ \rho_i = \sum_{j: V_j \subset U_i} f_j \]
+    The empty sum leads to $\rho_i = 0$. 
+\end{proof}
+
+\begin{proposition}\label{map_extension}
+    Let $U \subset M$ be open subset of manifold and $f \in C^\infty(U)$ and $p \in U$. Then there is a map $\tilde{f} \in C^\infty(M)$ and open n'hood $B \subset U$ of $p$ such that 
+    \[ \tilde{f}|_B = f|_B  \]
+\end{proposition}
+
+\begin{proof}
+    As $M$ is locally compact Hausdorff, we can find $B \subset \overline{B} \subset U$ with $\overline{B}$ closed. Take partition of unity subordinate to $M = U \cup (M \setminus \overline{B})$. Define 
+    \[ \tilde{f}(x) = \begin{cases}
+        f(x) \rho(x) \qquad x \in U \\
+        0 \qquad x \notin U  \\ 
+    \end{cases}\]
+    By the gluing lemma for smooth maps it follows that $\tilde{f} \in C^\infty(M)$ and as $\supp(\rho_2) \subset M \setminus \overline{B}$ we have that $\rho_1|_{\overline{B}} = 1$ and hence as desired: 
+    \[ \tilde{f}|_B = f|B \]
+\end{proof}
+
+\section{Vector Bundles}
+
+\subsection{Vector bundles}
+\begin{definition}
+    A (smooth) vector bundle is a triple $(\pi, E, B) $ where  $E,B$ are topological spaces (smooth manifolds) and a continuous (smooth) map $\pi: E \to B$, such that $\forall x \in B$ there is open n'hood $U_\alpha \subset B$ around $x$ with a trivialization map $\Phi_\alpha $ such that 
+    \begin{enumerate}
+        \item $\pr_i \circ \Phi_\alpha = \pi $ 
+        \item $\Phi_\alpha : \pi^{-1}(U_\alpha) \to U_\alpha \times \R^k $ a homeomorphism
+        \item $E_x := \pi^{-1}(\{x\}) \cong \R^k$ and $\Phi_\alpha |_{E_x} \in GL(k, \R) $. 
+    \end{enumerate}
+    It follows immediately that there are continuous (smooth)transition functions $t_{\beta \alpha} : U_\alpha \cap U_\beta \to GL(k, \R) $ such that 
+    \[ \Phi_\beta \circ \Phi_\alpha^{-1} (x,v) = (x, t_{\beta \alpha}(x) v ), \qquad \forall (x,v) \in U_\alpha \cap U_\beta \times \R^k \]
+\end{definition}
+Conceptually the above definition makes clear intuitively what a vector bundle is. However there is an equivalent description of vector bundles that is in many cases computationally more efficient. 
+\begin{lemma}(Vector bundle reconstruction theorem)\\
+    Given an open cover $\{ U_\alpha \}$ of $B$ and continuous (smooth) functions $t_{\beta \alpha} : U_\alpha \cap U_\beta \to GL(k, \R) $ that satisfy : 
+    \begin{enumerate}
+        \item $t_{\alpha \alpha } = \id_{\R^{k\times k}}  $
+        \item $t_{\gamma \beta } t_{\beta \alpha}  = t_{\gamma \alpha} $. 
+    \end{enumerate}
+    then there exists a unique vector bundle $\pi: E \to B$ whose transition functions are precisely $t_{\beta \alpha}$. 
+\end{lemma}
+
+\begin{definition}
+    Let $\pi: E \to B$ be vector bundle and $G \subset GL(k, \R)$ be a subgroup. $E$ has a $G$ structure if 
+    \[ t_{\beta \alpha} : U_\beta \cap U_\alpha \to G \]
+    i.e. when the its transition maps take value even in $G$
+\end{definition}
+
+
+\begin{definition}
+    Let $E, E'$ be vector bundles over $B$ that are trivialized over the same cover, whose transition functions read $t_{\beta \alpha}, t'_{\beta \alpha}$ respectively. Define new vector bundles as 
+    \begin{enumerate}
+        \item $E \oplus E' = \coprod_{x \in B} E_x \oplus E'_x  $, the whitney sum with transition functions 
+        \[ t_{\beta \alpha} \oplus t'_{\beta \alpha} \]
+        \item $E^* = \coprod_{x \in B} (E_x)^*$,  the dual bundle with transition functions 
+        \[ (t^T_{\beta \alpha})^{-1} \]
+        \item $f^*E = \coprod_{x \in B'} E_{f(x)}$, the pull back bundle over $B'$ with transition functions 
+        \[ f^* t_{\beta \alpha} = t_{\beta \alpha} \circ f \]
+        where $f: B' \to B$ is a smooth map. 
+        \item $E \otimes E' = \coprod_{x \in B} E_x \otimes E'_x $, the tensor product bundle with transition functions 
+        \[ t_{\beta \alpha} \otimes t'_{\beta \alpha} \]
+        \item $E \wedge E = \coprod_{x \in B} E_x \wedge E_x $, the wedge product bundle with transition functions 
+        \[ t_{\beta \alpha} \wedge t_{\beta \alpha} \]
+    \end{enumerate}
+    As by the previous construction theorem, the transition functions determine the topology on the set theoretic equalities above. The existence and definition of the last two transition functions are elaborated in the multilinear algebra section. 
+
+\end{definition}
+
+\iffalse 
+(i): by consdering the set and the diffeomorphisms: 
+The tensor product bundle $E\otimes F$ is defined as the set of tensor products of the respective fibers  
+\[ E\otimes F := \bigcup_{x \in B} E_x \otimes_{\mathbb{K}} F_x  \]
+where the trivialization is given by 
+\[ (\Phi \otimes \Psi) (\sum_{ij}\lambda^{ij}v_i \otimes w_j) = (x, \sum_{ij}\lambda^{ij}pr_2(\Phi(v_i))\otimes pr_2(\Psi(w_j)))  \in \{ x\} \times (\K^r \otimes \K^s) \]
+
+
+(ii): by considering the gluing construction 
+\[ E\otimes F := \coprod_{\alpha} U_\alpha \times (\K^r \otimes \K^s) /\sim \]
+where 
+\[ \left[\left(\alpha, x, \sum_{ij}\lambda^{ij}v_i\otimes w_j \right)\right] = \left[\left(\beta, x,\sum_{ij}\lambda^{ij}g_{\beta \alpha}v_i \otimes h_{\beta \alpha} w_j\right)\right] \]
+\fi 
+
+\begin{definition}
+     A vector bundle morphism over the same base is a continuous (smooth) map $f : E \to E'$ over bundles $\pi: E \to B, \pi' : E' \to B$ such that 
+     \[ \pi' \circ f = \pi  \] 
+     \iffalse the diagram
+    \[ \begin{tikzcd}
+        E \arrow{rr}{f} \arrow{dr}{\pi} & & E' \arrow{dl}{\pi'} \\ 
+          & B & \\  
+    \end{tikzcd} 
+        \]
+    commutes. 
+    \fi 
+    These are the natural maps to consider between vector bundles. 
+    The map $f$ is a  bundle isomorphism if there exists another bundle morphism $g$ such that $fg = \id_{E'}, gf = \id_{E}$. 
+\end{definition}
+
+\begin{definition}
+    A vector bundle is trivial if it is isomorphic to a product bundle $B \times \R^k$. 
+\end{definition}
+
+\begin{lemma}
+    A bundle map $f: E \to E'$ is an isomorphism if and only if it is an isomorphism in each fibre. 
+\end{lemma}
+
+\begin{remark}
+    The bundle constructions are defined in precisely such a way, that when fibres of two vector bundles $E, F$ are ismorphic in a certain \textbf{canonical} or natural way, the bundles themselves are isomorphic as well. 
+\end{remark}
+
+\begin{definition}
+    Define the space of sections as 
+    \[ \Gamma(E) = \{ s \in C(B, E) | \pi \circ s = \id_B \} \] 
+    This space can naturally be considered as a $\mathbb{K}$ vector space of functions or as a $C^\infty(B)$ module since for any two sections $t,s \in \Gamma(E)$,
+    \[ (t+s)(x) = t(x) + s(x) \in \pi^{-1}(\{ x\} )\]
+    where the addition is well defined since the fibre $E_x = \pi^{-1}(\{ x\} )$ is 
+    a $\K$   vector space. 
+\end{definition}
+
+\begin{lemma}
+    A vector bundle $\pi: E \to B$ is trivial if and only if it admits $k$ sections $s_1, \dots, s_k \in \Gamma(E)$ which are pointwise linearly independent. 
+\end{lemma}
+\begin{proof}
+    \begin{enumerate}
+        \item If $E$ is trivial, there is bundle isomorphism $\Phi: E \to B \times \R^k$. Clearly \[ s_i = \Phi^{-1}( - , e_i) \] for $\{ e_i \} \subset \R^k$ a basis, yields smooth sections that are ptwise lin. independent. 
+        \item Define the map 
+        \[ \phi: B \times \R^k \to E \]
+        \[ (x, (\lambda_1, \dots, \lambda_k)) \mapsto \sum_i \lambda_i s_i(x) \]
+        This is a smooth map and one can see that it is a bundle map that is isomorphic in each fibre, so a bundle isomorphism. 
+    \end{enumerate}
+\end{proof}
+
+\begin{corollary}
+    A rank 1 vector bundle is trivial if and only if it has a nowhere vanishing section, i.e. $\exists s \in \Gamma(E) : s(x) \neq 0, \forall x \in B$. 
+\end{corollary}
+
+\iffalse 
+\begin{definition}
+    A section of the cotangent bundle is an element $\omega \in \Gamma(T^*M)$. For any Vector field $X \in \Gamma(TM)$ it must hold that 
+    \[ \omega(X) \in C^\infty(M)  \]
+    Further since this is defined pointwise, and for any $f \in C^\infty(M)$, $fX \in \Gamma(TM)$ 
+    \[ \forall p \in M: \omega(fX)(p) = \omega_p(f(p)X_p) = f(p)\omega_p(X_p)  = f\omega(X)(p)\]
+    as $\omega_p \in (T_pM)^*$ and hence $\R$ linear. Independent of that we know that $\Gamma(TM)$ is a $C^\infty(M) $ module, and this gives a necessary condition on sections. I.e. It turns out that $(\Gamma(TM))^*$ is equivalent to $\Gamma(T^*M)$. In the former the elements eat vector fields and spit out $C^\infty(M)$ functions and are by definition $C^\infty(M)$-linear (since it is sort of the space of linear functionals, and linear with respect to the module $C^\infty(M)$). The latter is a smooth function that is pointwise on each fiber $\R$ linear but it turns out that these two agree. So the morale is: If one wants to check if $w \in \Gamma(T^*M)$ then check if $w \in (\Gamma(TM))^*$, i.e. check if $C^\infty(M)$ linear, instead of checking smoothness, which is far easier. 
+\end{definition}
+\fi 
+
+\begin{example}
+    The Moebius strip is $M = [0,1]^2 / \sim$ where $(0,x) \sim (1, 1-x)$. The Moebius bundle is defined as the 1 dimensional vector bundle over $S^1$ with cover $\{S^1 \setminus \{ 1 \}, S^1 \setminus \{ -1 \} \} $ and transition functions 
+    \[ t_{\beta \alpha}(x) = \delta_{\beta \alpha} + (1-\delta_{\beta \alpha})\sgn(x^2)  \]
+    The Moebius bundle is not trivial  
+    \begin{proof}
+        Suppose there is a nonvanishing section $s: S^1 \to M$. Then under the trivializations $\Phi_\alpha, \Phi_\beta$ one has 
+        \[ \Phi_\alpha(s(x)) = (x, \phi_\alpha(s(x)))\]
+        \[ \Phi_\beta(s(x)) = (x, \phi_\beta(s(x)))\] 
+        Now apply $\Phi_\alpha\circ \Phi_\beta^{-1}$ to obtain for $ x \in \R^2 \setminus  \R \times \{0 \}  $. 
+        \[ (x, \phi_\alpha(s(x))) = (x, t_{\alpha \beta} \phi_\beta(s(x)))\]
+        Then one gets 
+        \[ x^2 > 0 : \phi_\alpha(s(x)) = \phi_\beta(s(x))\]
+        \[ x^2 < 0: \phi_\alpha(s(x)) = -\phi_\beta(s(x)) \] 
+        Hence there must be a sign change, so $s(x)$ must vanish at some point. 
+    \end{proof}
+\end{example}
+
+\begin{definition}
+    A matric $g = \langle , \rangle $ on a vector bundle $\pi: E \to B$ is a fibrewise positive definite scalar product on $E_x$ which dependes smoothly on $x \in B$. I.e. 
+    \[ g = \langle , \rangle \in \Gamma( E^* \otimes E^* )\]
+\end{definition}
+
+\begin{proposition}
+    Every real vector bundle admits a metric. 
+\end{proposition}
+\begin{proof}
+    Let $\{ U_\alpha \} $ be a covering of $B$ by trivializations. Define 
+    \[ g_\alpha : \pi^{-1}(U_\alpha) \to \R \]
+    \[ \]
+\end{proof}
+
+\begin{definition}
+    Let $\pi: E \to B$ be a vector bundle. 
+     A subbundle is a manifold $F \subset E$ such that $\pi|F: F \to B$ is a vector bundle itself. 
+\end{definition}
+
+\begin{lemma}
+    Let $F \subset E$ be a subbundle. Then there is a vector bundle, the quotient bundle, which as a set reads 
+    \[ E/F = \coprod_{x \in B} E_x / F_x  \] 
+\end{lemma}
+
+\begin{lemma}
+    Let $g = \langle, \rangle$ be a metric on $E$ and $F \subset E$ subbundle. Then there is a vector bundle, the orthogonal complement, which as a set reads 
+    \[ F^{\perp } = \coprod_{x \in B} F_x^\perp \]
+\end{lemma}
+
+\begin{lemma}
+
+    Let $\pi: E \to B$ be a real vector bundle. Let $g$ be a metric on $E$. There exists a bundle isomorphism 
+    \[ E \to E^* \]
+    \[ v \mapsto g(v, - ) \]
+\end{lemma}
+\subsection{Tangent bundle}
+Let $M$ be a manifold. 
+
+\begin{definition}
+    Let $A$ be a $\R$ algebra. A derivation $D: A \to A  $ is a $\R$ linear map such that 
+    \[ D(ab) = D(a)b + aD(b), \quad \forall a,b \in A \]
+    Define  $\Der(A) $ as the $\R$ vector space of derivations.  If $A=C^\infty(M)$, denote $\Der_p(C^\infty(M)) $ as the space of $\R$ linear maps, the derivations at p, $D_p : C^\infty(M) \to \R$ such that 
+    \[ D_p(fg) = D_p(f) g(p) + f(p)D_p(g), \quad \forall f,g \in C^\infty(M) \]
+\end{definition}
+
+\begin{lemma}\label{derivation_locality}
+    Let $D_p$ be a derivation at $p$ and $f,g \in C^\infty(M)$.
+    \begin{enumerate}
+        \item If there is open $V$ around $p$ such that $f|_V = const.$ then 
+        \[ D_p(f) = 0\]
+        \item  If there is open $V$ around $p$ such that $f|_V = g|_V$. Then 
+        \[ D_p(f) = D_p(g) \]
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    Use locally compactness of $M$ together with existence of partiton of unity. 
+\end{proof}
+
+\begin{definition}
+    Let $p \in M$. Define the tangent space
+    \begin{enumerate}
+        \item algebraically as $T_pM:= \Der_p(C^\infty(M))$. 
+        \item geometrically as $T_pM:= \{ \gamma | \gamma: (-\varepsilon, \varepsilon) \to M \} / \sim $ where $\gamma \sim \gamma'$ if 
+        \[ \forall f \in C^\infty(M) : \dv{}{t}\Big|_{t=0}(f \circ \gamma) = \dv{}{t} \Big|_{t = 0} (f \circ \gamma')\]
+    \end{enumerate}
+\end{definition}
+
+\begin{lemma}
+    There is an ismorphism between the geometrical and algebraic tangent space given as 
+    \[ [\gamma] \mapsto X_p = ( f \mapsto X_p(f) = \dv{}{t} \Big|_{t=0}(f \circ \gamma)) \]
+\end{lemma}
+
+\iffalse 
+\begin{lemma}
+    Let $p \in M$. Let $(U,\phi)$ be chart around $p$. Then there is an isomorphism 
+    \[ i_{*, p} :T_pU \to T_pM \]
+\end{lemma}
+\fi 
+
+\begin{proposition}
+    It holds that $T_pM \cong \R^n$ where $n = \dim(M)$. Moreover in a local chart $(U, \phi)$ around $p$, defining 
+    \[ \left( \pdv{}{x^i}\right)_p (f) := \pdv{(f \circ \phi^{-1})}{x^i}\Big|_{\phi(p)}, \quad \forall f \in C^\infty(M) \]
+    the set $\{ \left( \pdv{}{x^i}\right)_p \}_{i=1, \dots, n }$ is a basis for $T_pM$ 
+    such that $\forall X_p \in T_pM$: 
+    \[ X_p = X_p(x^i) \left( \pdv{}{x^i}\right)_p \]
+    where $x^i = \phi^i = \pr_i \circ \phi $ are the $i$-th coordinate maps. 
+\end{proposition}
+\begin{remark}
+    For notational convenience it is tacitly understood that $X_p(x^i)$ is meant to be $X_p(\overline{x^i})$ where $\overline{x^i} \in C^\infty(M) $ is any  extension of $x^i \in C^\infty(U) $ from lemma \ref{map_extension}. 
+\end{remark}
+\begin{proof}
+    Proceed in two steps. 
+    \begin{enumerate}
+        \item $\{ \left( \pdv{}{x^i}\right)_p \}_{i=1, \dots, n }$ is linearly independent. 
+        \[ 0 = \sum_i \lambda_i \left( \pdv{}{x^i} \right)_p (x^j) = \sum_i \lambda_i \delta_{ij} = \lambda_i \]
+        \item $\{ \left( \pdv{}{x^i}\right)_p \}_{i=1, \dots, n }$  is generating set for $T_pU$. So let $X \in T_pU$ arbitrary. Let $f \in C^\infty(M)$. 
+        Now denote $F = f \circ \phi^{-1} \in C^\infty(\phi(U))$ and $a = \phi(p) $. Choose coordinate ball $\phi(p) \in \phi(B) \subset \phi(U)$. Then $\forall x \in \phi(B)$ 
+        \begin{align*}
+            F(x) - F(a)  &= \int_0^1 \dv{F(a+t(x-a))}{t} \d{t}   = \int_0^1 \pdv{F(a+ t(x-a))}{x^i} \, (x^i - a^i) \d{t}  \\
+            &= -(1-t) \pdv{F(a+ t(x-a))}{x^i} \, (x^i - a^i)\Big|^1_0  + \int_0^1 (1-t) \dv{}{t} \, \pdv{F(a+ t(x-a))}{x^i} \, (x^i - a^i) \d{t} \\
+            &= (x^i - a^i) \pdv{F(a)}{x^i}(x^i - a^i) + (x^i-a^i)(x^j-a^j) \int_0^1(1-t) \pdv{F(a+t(x-a))}{x^j}{x^i}\d{t} 
+        \end{align*}
+        Hence get a local description of $f|_B = (F \circ \phi )|_B $: 
+        \[ (f\circ \phi^{-1}\circ \phi) |_B =  f(a) + \pdv{F(a)}{x^i} \, ( \phi^i - a^i) +\pdv{F(a)}{x^i}{x^j} \, (\phi^i - a^i)(\phi^j - a^j) G(\phi) \]
+        Now by the extension lemma, the maps $\phi^i, (\phi^i - a^i)$ and $(\phi^j - a^j)G(\phi)$ defined on $B$ have a smooth extension, $\overline{(\phi^i - a^i)}, \overline{(\phi^j- a^j) G(\phi)} \in C^\infty(M)$. Hence since 
+        \[ f|_B = \left( f(a) + \pdv{F(a)}{x^i} \, ( \overline{\phi^i} - a^i) +\pdv{F(a)}{x^i}{x^j} \, \overline{(\phi^i - a^i)} \cdot \overline{(\phi^j - a^j) G(\phi)} \right)|_B \]
+        by locality of derivations (lemma \ref{derivation_locality}) and linearity it follows that 
+        \[ X_p(f) = \pdv{F(a)}{x^i} X_p(\overline{\phi^i}) = X_p(\overline{\phi^i}) \left(\pdv{}{x^i}\right)_p (f) \]
+    \end{enumerate}
+    
+\end{proof}
+
+\begin{definition}
+    Given a manifold $X$ of dimension $n$, we define its tangent bundle $TX$ in the following way. As a set it is the disjoint union 
+    \[ TX = \coprod_{p \in X} T_pX \]
+    Defining maps for $(U, \phi) \in \mathscr{A}$
+    \[ \Phi_U: \pi^{-1}(U) \to U \times \R^n \subset \R^{2n}, (p, X_p) \mapsto (\phi(p), X_p(\phi_1), \dots, X_p(\phi_n))\]
+    The topology is given by 
+    \[ \mathcal{T} = \{ W \subset TX | \forall (U, \phi) \in \mathscr{A}: \Phi_U(W \cap \pi^{-1}(U)) \in \mathcal{O}(\R^{2n}) \}\]
+    This topology makes the $\Phi_U$ into homeomorphisms and hence $TX$ a manifold. A smooth structure on $X$ induces then a smooth structure on $TX$. Hence this makes $TX$ into a smooth vector bundle. 
+\end{definition}
+
+\begin{remark}
+    The topology is constructed precisely in this way, to ensure that all the $\Phi_U$ are continuous, i.e. 
+    \[ \mathcal{S} = \{ \Phi_U^{-1}(V) \subset TX | (U, \phi) \in \mathscr{A}, V \in \mathcal{O}(U \times \R^n) \} \]
+    is a subbasis for the above topology. 
+\end{remark}
+
+\iffalse 
+\begin{proof}
+    Let $\mathcal{T}$ be the above topology and $\mathcal{T}_{\mathcal{S}}$ be the topology induced by the subbasis. Clearly 
+    \[ \Phi_W(\Phi^{-1}_U(V\times \tilde{V}) \cap \pi^{-1}(W)) = (W\cap V )\times \tilde{V}  \in \mathcal{O}(\R^{2n})\]
+    and hence $\mathcal{T}_{\mathcal{S}} \subset \mathcal{T}$ as the $\Phi_U$ are now continuous. On the other hand, let $W\in \mathcal{T}$ open. Then as $\Phi_U$ is continuous with respect to $\mathcal{T}_{\mathcal{S}}$ and $\Phi_U(W \cap \pi^{-1}(U))$ is open, so is
+    \[ \Phi_U^{-1}(\Phi_U(W\cap \pi^{-1}(U)))= W \cap \pi^{-1}(U) \]
+    Hence as topologies are union closed and the charts cover $TX$
+    \[ W = \bigcup_{(U,\phi) \in [\mathscr{A}]} W \cap \pi^{-1}(U) \in \mathcal{T}_{\mathcal{S}} \]
+    Therefore $\mathcal{T} = \mathcal{T}_{\mathcal{S}}$. 
+
+\end{proof}
+\fi 
+
+\begin{lemma}
+    Let $M$ be smooth manifold. Let $\{ (U_\alpha, \phi_\alpha) \} $ be a smooth atlas. Then the tangent bundle $TM$ is equivalent to the vector bundle described by transition maps 
+    \[ t_{\beta \alpha}(x) = D_{\phi_\alpha(x)}(\phi_\beta \circ \phi_\alpha^{-1}) \in GL(n, \R) \]
+\end{lemma}
+
+\begin{lemma}
+    Let $X : M \to TM$ be a rough section. Then the two statements are equivalent 
+    \begin{enumerate}
+        \item $X \in \mathfrak{X}(M)$, i.e. is a smooth vector field 
+        \item $\forall q \in M$ there is chart $(U, \phi)$ around $q$ such that with the representation 
+        \[  X_p = X_p(\phi_i) \left( \pdv{}{x^i} \right)_p  \qquad p \in U \]
+        the functions 
+        \[ a_i : U \to \R, p \mapsto X_p(\phi_i) \]
+        are smooth. 
+    \end{enumerate}
+\end{lemma}
+
+\begin{proposition}
+    There is an isomorphism of $C^\infty(M)$ modules 
+    \[ \mathfrak{X}(M) = \Gamma(TM) \to \Der(C^\infty(M))  \]
+    \[ X \mapsto \hat{X} = (f \mapsto X(f) )\]
+\end{proposition}
+\begin{proof}
+    Proceed in three steps. 
+    \begin{enumerate}
+        \item This map is well defined: Check that  $(p \mapsto X_p(f)) \in C^\infty(M)$ 
+        \item Injectivity is clear 
+        \item For surjectivity consider $D \in \Der(C^\infty(M))$ a derivation. Define the rough section $X: M \to TM$ as 
+        \[ p \mapsto X_p = (f \mapsto (D(f))(p))\]
+    \end{enumerate}
+\end{proof}
+
+\subsection{Tensors and forms}
+\begin{definition}
+    The $(p,q)$-tensor bundle of a manifold is defined as $(TM)^{\otimes p}\otimes (T^*M)^{\otimes q} $. Sections of this tensor bundles are called rank $(p,q)$ tensors. 
+\end{definition}
+
+\begin{definition}
+    Let $F: M \to N $ be a smooth map. Define 
+    \begin{enumerate}
+        \item \textbf{pushforward of F at p} is the linear map 
+        \[ F_{*,p} : T_pM \to T_{F(p)}N \]
+        \[ X_p \mapsto (f \mapsto X_p(f \circ F))\]
+        \item \textbf{pullback of F at p} is linear the map 
+        \[ F^*_p : T^*_{F(p)}N \to T^*_pM \]
+        \[ \omega_{F(p)} \mapsto \omega_{F(p)} \circ F_{*,p} \]
+        \item \textbf{pullback of F} is the map 
+        \[ F^* : T^*N \to T^*M \]
+        \[ \omega \mapsto (p \mapsto F^*_p \omega_{F(p)} )\]
+    \end{enumerate}
+    When $F$ is diffeomorphism define 
+    \begin{enumerate}
+        \item \textbf{pushforward of F} is the map 
+        \[ F_* : \mathfrak{X}(M) \to \mathfrak{X}(N) \]
+        \[ X \mapsto (p \mapsto (F_* X)_p = F_{*, F^{-1}(p)}(X_{F^{-1}(p)}))\]
+    \end{enumerate}
+\end{definition}
+
+\begin{lemma}
+    Let $F: M \to N$ be smooth and $p \in M$. Then 
+    \[ F_{*,p} \text{ injective/ surjective } \Leftrightarrow D_{\phi(p)}(\psi \circ F \circ \phi^{-1})  \text{ injective/ surjective }\] 
+    for any charts $\phi, \psi$ around $p, F(p)$. 
+\end{lemma}
+\begin{proof}
+    So consider let $(U, \phi)$ and $(V, \psi)$ be coordinates around $p$ and $F(p)$. Then 
+    \[ F_{*,p}\left(\left( \pdv{}{x^i} \right)_p \right)(f) = \left( \pdv{}{x^i} \right)_p(f \circ F) =  \pdv{ (f \circ F \circ \phi^{-1})}{x^i}  =  \pdv{ (f \circ \psi^{-1} \circ \psi \circ F \circ \phi^{-1})}{x^i}  \]
+    \[ =  \pdv{ (f \circ \psi^{-1})}{y^j}\pdv{(\psi^j \circ F \circ \phi^{-1})}{x^i } = \pdv{(\pr^j(\psi \circ F \circ \phi^{-1})}{x^i} \left( \pdv{}{y^j}\right)_{F(p)} (f) \]
+    The claim follows because 
+    \[ D_{\phi(p)}(\psi \circ F \circ \phi^{-1}) = \left( \pdv{(\pr^j(\psi \circ F \circ \phi^{-1})}{x^i} \right)_{ji}\]
+\end{proof}
+
+\section{Submanifolds}
+\begin{definition}
+    Let $f: M \to N $ be map of smooth manifolds and $p \in M$. $f$ is called 
+    \begin{enumerate}
+        \item \textbf{immersion/ submersion at p} if $f_{*,p} : T_pM \to T_pN $ is injective/ surjective.
+        \item \textbf{immersion/ submersion} if $f$ is immersion/ submersion at all points $p \in M$
+        \item \textbf{embedding} if it is a topological embedding (i.e. homeomorphism onto its image) and an immersion.  
+    \end{enumerate}
+\end{definition}
+
+\begin{lemma}
+    Let $f: M \to N$ be immersion at $p \in M$. Then there exists a chart $(U, \phi)$ around $p$ and $(V, \psi)$ around $f(p)$ such that 
+    \[ \psi \circ f \circ \phi^{-1} = i|_{\phi(U)}\]
+    where $i : \R^m \xhookrightarrow{} \R^n $ is the standard inclusion. 
+\end{lemma}
+
+\begin{lemma}
+    Let $f: M \to N$ be submersion at $p \in M$. Then there are chart $(U, \phi)$ around $p$ and $(V, \psi)$ around $f(p)$ such that 
+    \[ \psi \circ f \circ \phi^{-1} = \pr|_{\phi(U)}\]
+    where $\pr: \R^m \twoheadrightarrow \R^n$ is the standard projection. 
+\end{lemma}
+
+\begin{definition}
+    Let $M$ be manifold. A subset $S \subset M$ is an immersed submanifold, if there is a topology on $S$ (not necessarily the subspace topology) which makes $S$ to a manifold and given such a smooth structure that $i: S \to M$ is a smooth immersion. 
+\end{definition}
+
+\begin{definition}
+    Let $M$ be manifold. A subset $S\subset M$ is an embedded submanifold if it is a manifold in the subspace topology and given such a smooth structure that $i : S \to M$ is a smooth embedding. 
+\end{definition}
+
+\begin{proposition}(local slice criterion)
+    A subset $S\subset M$ is a embedded submanifold of dimension $k$ if and only if it satisfies the local slice criterion, i.e. $\forall p \in S$ there is chart $(U, \phi)$ of $M$ such that 
+    \[ \phi( U \cap S) = \phi(U) \cap (\R^{k} \oplus \{ 0 \}^{n-k} )\]
+\end{proposition}
+
+\begin{remark}
+    When the term 'submanifold' is used it is tacitly understood that it is a embedded submanifold. 
+\end{remark}
+
+\begin{lemma}
+    Let $f: M \to N$ be an embedding. Then $f(M) \subset N$ is a submanifold. (This statement is only non trivial if one uses the local slice definition for submanifolds). 
+\end{lemma}
+
+\begin{definition}
+    Let $f: M \to N$ be smooth map. $q \in N$ is a \textbf{regular value} if 
+    \[ \forall p \in f^{-1}(\{ q \}) : f_{*,p}: T_pM \to T_qN \text{ is surjective} \]
+\end{definition}
+
+\begin{lemma}
+    Let $f: M \to N$ be smooth and $q \in N$ be regular value. Then $f^{-1}(\{ q \})$ is a manifold of $M$. 
+\end{lemma}
+
+
+\begin{theorem}(Sard's theorem)\\
+    Let $f: M \to N$ be smooth. Let $Q= \{ q \in N | q \text{ is regular value of } f \} $. Then 
+    \[ \overline{Q} = N \]
+\end{theorem}
+
+\begin{theorem}(Whitney's embedding theorem)\\
+    Let $M$ be a smooth manifold of dimension $m$. Then there is an embedding $f: M \to \R^{2m}$. 
+    
+\end{theorem}
+
+\begin{proof}
+    Proof only for the special case when $M$ is compact. 
+\end{proof}
+
+\section{Flows}
+
+\begin{definition}
+    A global flow on a smooth manifold $M$ is a smooth map $\Phi : M \times \R \to M$ such that 
+    \begin{enumerate}
+        \item $\Phi(-,0) = \id_M  $
+        \item $\Phi(-, t) \circ \Phi(-,s) = \Phi(-, t+s) $
+    \end{enumerate}
+    Denote the diffeomorphism $\Phi^t = \Phi(-, t) : M \to M $. 
+\end{definition}
+
+\begin{definition}
+    A local flow on $M$ is a family of smooth maps $\Phi_i : U_i \times (-\varepsilon_i, \varepsilon_i) \to M$ such that $\{ U_i \}$ is open cover of $M$ and
+    \begin{enumerate}
+        \item $\Phi_i(-,0) = \id_{U_i}  $
+        \item $\Phi_i(-, t) \circ \Phi_i(-,s) = \Phi_i(-, t+s) $ whereever defined. 
+        \item satisfy compatibility condition, i.e. for $U_i \cap U_j \neq \emptyset $ we have \[ \Phi_i(x,t) = \Phi_j(x,t) \qquad (x,t) \in U_i \cap U_j \times (-\min(\varepsilon_i, \varepsilon_j), \min(\varepsilon_i, \varepsilon_j)) \]
+    \end{enumerate} 
+
+\end{definition}
+
+\begin{lemma}
+    Let $\Phi$ be a flow on $M$. Then the rough section $X: M \to TM$ given by 
+    \[ X_p(f) = \dv{}{t}\Big|_{t=0} \Phi^t(p)^*(f) \quad f \in C^\infty(M)  \]
+    is a smooth vector field. 
+\end{lemma}
+
+\begin{definition}
+    Let $f: X \to Y$ be a map between metric spaces $(X, d_X), (Y, d_Y)$. 
+    \begin{enumerate}
+        \item $f$ is Lipschitz continuous if $\exists L\geq 0 $ such that $\forall x,y \in X : d_Y(f(x),f(z)) \leq L d_X(x,y) $
+        \item $f$ is locally Lipschitz continuous if $\forall x \in X$ there is open n'hood $U \in \mathcal{N}_x$ such that $f|_{U}$ is Lipschitz continuous. 
+    \end{enumerate}
+\end{definition}
+\begin{definition}
+    Let $f: X \to Y$ be continuously differentiable map between normed spaces. Then $f$ is locally Lipschitz continuous. 
+\end{definition}
+\begin{theorem}(Picard Lindeloef):
+    Let $f: [a,b]   \times \R^n \to \R^n$ be continuous and consider the initial value problem 
+    \[ \gamma: I \to \R^n, \quad I \subset [a,b]\]
+    \[ \gamma(t_0) = p, \quad  \dv{}{t}\, \gamma(t) = f(t, \gamma(t)) \]
+    \begin{enumerate}
+        \item If $f$ is Lipschitz continuous in the second variable for all $t$, then there is a unique solution \\ $\gamma: I \to \R^n$ with $I = [a,b]$. 
+        \item If $f$ is locally Lipschitz continuous in the second variable for all $t$, then there is a unique solution $\gamma : I \to \R^n$ with $I \subset [a,b]$ open. 
+    \end{enumerate}
+    
+    
+\end{theorem}
+\iffalse 
+\begin{remark}
+    It is important that $I$ is compact, because then $C(I, \R^n) = C^b(I, \R^n)$, making it a Banach space, allowing us to use Banach fixed point theorem. 
+\end{remark}\fi 
+
+\begin{proposition}
+    Let $X\in \mathfrak{X}(M)$. Then there exists a local flow $\{ (U_i, \Phi_i)\}$ such that they are locally the unique integral curves, i.e. 
+    \[ X_p(f) = \dv{}{t}\Big|_{t=0} \Phi_i^t(p)^*(f) \quad f \in C^\infty(M), p \in U_i \]
+\end{proposition}
+\begin{proof}
+    Let $p \in M$ and choose a chart $(U,\varphi)$ around that point. In that chart there are smooth functions $a = (a^1, \dots, a^n) : U \to \R$ such that 
+    \[ X_q  = a^i(q) \left( \pdv{}{x^i} \right)_q \quad q\in U   \]
+    Then the condition translates, because $\varphi = (\varphi^1, \dots, \varphi^n) \in C^\infty(U)$, to \footnote{this is a vector equation, so implicitly there are $n$ equations, each for $\phi^i$} 
+    \[ \Phi^{t = 0 } =p, \quad  \dv{}{t} \; (\varphi \circ \Phi^t) = X_{\Phi^t }(\varphi) = a(\Phi^t)  = (a \circ \varphi^{-1})(\varphi\circ \Phi^t)\]
+    Now the map 
+    \[ a\circ \varphi^{-1} : [a,b] \times \phi(U) \to \R^n \]
+    is smooth in the second variable, hence is locally Lipschitz continuous in the second variable. Then with Picard Lindeloef the proposition follows, by setting 
+    \[ \Phi_i(t,p) := \Phi^t  \]
+    where $\Phi^t$ is the unique solution to the initial value $\Phi^0 = p $. The rest of the details are omitted. 
+\end{proof}
+
+\begin{definition}
+    Two local flows are \textbf{equivalent}  if their union is also a local flow. 
+\end{definition}
+
+\begin{proposition}
+    There is a 1-1 correspondence between equivalence classes of local flows on $M$ and vector fields $X \in \mathfrak{X}(M)$. 
+\end{proposition}
+
+\begin{definition}
+    A vector field $X$ is \textbf{complete} if there is a local flow 
+    \[ \Phi_i : U_i \times \R \to M \]
+    in its equivalence class of flows. 
+\end{definition}
+
+\begin{proposition}
+    Let $X \in \mathfrak{X}(M)$ whose support $\supp(X)= \overline{p \in M | X_p \neq 0 } \subset M $ is compact. Then $X$ is complete. 
+\end{proposition}
+\begin{proof}
+    Let $ \{ U_i, \Phi_i \}$ be a local flow for $X$. As $\{ U_i \}$ is open cover of $X$ it also covers $\supp(X)$, so by compactness there are $U_1 , \dots, U_k$ with 
+    \[ \supp(X) \subset \bigcup_{i=1}^k U_i \]
+    Let $U_0 = M \setminus \supp(X) $. Define 
+    \[ \Phi_0 : U_0 \times \R \to M \] 
+    \[ (x,t) \mapsto x \]
+    Thus one gets a new representative of the flow $\{ (U_i, \Phi_i) \}_{i =0, \dots, k }$. Set $\varepsilon = \min(\varepsilon_1, \dots, \varepsilon_k ) > 0$. Define the map 
+    \[ \Phi : M \times (-\varepsilon, \varepsilon) \to M \]
+    \[ (x,t) \mapsto \Phi_i(x,t) \qquad x \in U_i \] 
+    This is well defined by the compatibility condition on local flows. Finally extend the domain of definition. For any $t \in \R$ define 
+    \[ N(t) = \min(N \in \N : t / N \in (-\varepsilon, \varepsilon)) \]
+    Thus define 
+    \[ \Phi : M \times \R \to M \]
+    \[ \Phi(x,t) = \Phi(x, t/N(t))^N(t) \]
+
+\end{proof}
+
+
+\subsection{Lie Derivatives}
+
+\begin{definition}
+    For vector fields $X,Y \in \mathfrak{X}(M)$ define the Lie bracket  as the map bilinear and skew-symmetric 
+    \[ [- , - ] : \mathfrak{X}(M) \times \mathfrak{X}(M) \to \mathfrak{X}(M) \]
+    \[ [X, Y] = X \circ Y - Y \circ X \]
+    It can easily be seen that $[ X,Y] \in \Der(C^\infty(M))$, hence there is $[X,Y] \in \mathfrak{X}(M)$ with 
+    \[ [X,Y]_p(f) = ([X,Y](f))(p) =  X_p(Y(f)) - Y_p(X(f)), \quad f \in C^\infty(M) \]
+\end{definition}
+
+\begin{lemma}(Naturality of Lie bracket)\\
+    Let $X_1, X_2 \in \mathfrak{X}(M)$ and $Y_1, Y_2 \in \mathfrak{X}(N)$ and $F: M \to N$ smooth map such that 
+    \[ \forall p \in M : F_{*,p}(X_i)_p = (Y_i)_{F(p)}  \]
+    Then it holds that 
+    \[ \forall p \in M : F_{*,p}[X_1, X_2]_p = [Y_1, Y_2]_{F(p)} \]
+\end{lemma}
+
+\begin{lemma}
+    Let $F: M \to N$ be diffeomorphism. Then it holds that 
+    \[ F_*[X,Y] = [F_*X, F_*Y ] \]
+\end{lemma}
+
+\begin{definition}
+    A \textbf{Lie Algebra} $\mathfrak{g}$ is a real vector space with a map $[,] : \mathfrak{g} \times \mathfrak{g} \to \mathfrak{g}$ satisfying 
+    \begin{enumerate}
+        \item $[-, - ]$ is bilinear 
+        \item $[X,Y]= - [Y,X] $, i.e. is skew symmetric 
+        \item $[X, [Y,Z]] + [Y,[Z,X]] + [Z,[X,Y]] = 0 $, i.e. satisfies Jacobi identity. 
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}
+    A \textbf{Lie Group} $G$ is a group $G$ that is also a smooth manifold in which the maps 
+    \[ \cdot : G \times G \to G, (g,h) \mapsto gh  \]
+    \[ -^{-1} : G \to G, g \mapsto g^{-1} \]
+    are smooth. 
+\end{definition}
+
+\begin{definition}
+    Let $G$ be Lie group. Define for $h \in G$
+    \[ L_h : G \to G, g \mapsto hg \]
+    \[ R_h : G \to G, g \mapsto gh^{-1} \]
+    These can be seen to be diffeomorphisms. 
+\end{definition}
+
+\begin{lemma}
+    There is an isomorphism 
+    \[ (L_g)_{*, e} : T_eG \to T_gG \]
+    and $TG$ is trivial. 
+\end{lemma}
+
+\begin{definition}
+    A vector field $X \in \mathfrak{X}(G)$ is \textbf{left invariant} if 
+    \[ (L_g)_* X = X \quad \forall g \in G \]
+    It follows that for such $X$ 
+    \[ (L_h)_{*,g}(X_g) = X_{hg} = \]
+\end{definition}
+
+\begin{definition}
+    Given a Lie group $G$, define its \textbf{Lie algebra of the Lie group} G to be 
+    \[ \mathfrak{g} = \{ X \in \mathfrak{X}(G) | X \text{ left invariant } \} \]
+\end{definition}
+
+\begin{lemma}
+    It holds that $\mathfrak{X}(G)$ is Lie algebra but also that $\mathfrak{g} \subset \mathfrak{X}(G)$, i.e. $[X,Y]$ is left invariant, when $X,Y$ are. 
+\end{lemma}
+
+
+\begin{definition}
+    Let $X \in \mathfrak{X}(M)$. Denote $\Phi(t,p)$ be the flow with $\Phi(0,p) = p$. Define the Lie derivative as 
+    \[ \mathcal{L}_X : \Gamma((TM)^{\otimes p} \otimes (TM^*)^{\otimes q }) \to \Gamma((TM)^{\otimes p} \otimes (TM^*)^{\otimes q })\]
+    \[ T \mapsto \dv{}{t}\Big|_{t=0} (\Phi^t)^* T \]
+    In particular, for vector fields we have 
+    \[ \mathcal{L}_X : \mathfrak{X}(M) \to \mathfrak{X}(M) \]
+    \[ Y \mapsto  \dv{}{t}\Big|_{t=0} (\Phi^{-t})_* Y \]
+\end{definition}
+\begin{lemma}
+    The Lie derivative is well defined. 
+\end{lemma}
+
+\begin{lemma}\label{flow_derivative}
+    For $\Phi$ a flow of $X\in \mathfrak{X}(M)$ and $t$ in the domain of $\Phi$: 
+    \[ \dv{}{t}\, (\Phi^t)^* T = (\Phi^t)^*  \mathcal{L}_X T \]
+\end{lemma}
+
+\begin{lemma}
+    For vector fields $X,Y \in \mathfrak{X}(M)$ it holds that 
+    \[ \mathcal{L}_XY = [X,Y] \]
+\end{lemma}
+\begin{proof}
+    Let $p \in M$. By definiton 
+    \begin{align*}
+        (\mathcal{L}_XY)_p(f) &= \dv{}{t}\Big|_{t=0} ((\Phi^{-t})_* Y)_p (f)  =  \dv{}{t}\Big|_{t=0} Y_{\Phi^t(p)}(f \circ \Phi^{-t}(p))\\  &= \pdv{}{t}\Big|_{t=s=0} Y_{\Phi^t(p)}(f \circ \Phi^{-s}(p)) + \pdv{}{s}\Big|_{t=s=0} Y_{\Phi^t(p)}(f \circ \Phi^{-s}(p)) \\
+        &= \dv{}{t}\Big|_{t=0}(Y(f))(\Phi^t(p)) - \dv{}{s}\Big|_{s=0} Y_p(f \circ \Phi^{s}(p)) \\
+        &= X_p(Y(f)) - Y_p(X(f)) = [X,Y]_p(f) 
+    \end{align*} 
+    where the penultimate equality can be seen from taking $\Psi^t(p)$ local flow for $Y$ and 
+    \[ \dv{}{s}\Big|_{s=0} Y_p(f \circ \Phi^{s}(p)) = \dv{}{t}\Big|_{t=0} \dv{}{s}\Big|_{s=0} (f\circ \Phi^s \circ \Psi^t(p)) = \dv{}{t}\Big|_{t=0} (X(f))(\Psi^t(p))  = Y_p(X(f))\]
+    
+\end{proof}
+
+\begin{lemma}
+    Let $X,Y \in \mathfrak{X}(M)$ and $\Phi, \Psi$ flows for $X$ and $Y$. Then 
+    \[ [X,Y ] = 0 \Leftrightarrow \Phi^t \circ \Psi^s = \Psi^s \circ \Phi^t \]
+\end{lemma}
+\begin{proof}
+    \begin{enumerate}
+        \item Suppose the flows commute. Then 
+        \begin{align}
+            [X,Y] &= L_XY = \dv{}{t}\Big|_{t=0} (\Phi^{-t})_* Y =  \dv{}{t}\Big|_{t=0} \dv{}{s}\Big|_{s=0}(\Phi^{-t})_* (\Psi^{-s})_*  = \dv{}{t}\Big|_{t=0} \dv{}{s}\Big|_{s=0}(\Phi^{-t} \circ \Psi^{-s})_*  \\ &= \dv{}{t}\Big|_{t=0} \dv{}{s}\Big|_{s=0}(\Psi^{-s} \circ \Phi^{-t})_*  = \dv{}{s}\Big|_{t=0} (\Psi^{-s})_* X   = [Y,X] = -[X,Y]
+        \end{align}
+        from which it follows that $[X,Y] = 0 $.  
+        \item Suppose $[X,Y] = 0 $, so $[X,Y]_p = 0 $ for any $p \in M$. Let $\Phi, \Psi$ be local flows around $p$.  Then from lemma \ref{flow_derivative} one gets 
+        \[ \dv{}{t}\, (\Phi^{-t})_* Y = (\Phi^{-t})_* \mathcal{L}_XY = 0  \]
+        Hence, $(\Phi^{-t})_*Y =Y $, as $\Phi^{0} = \id $.  
+        Now define the curve for fixed $t$ as 
+        \[ \gamma : I \to M, \] 
+        \[ s \mapsto (\Phi^t  \circ \Psi^s)(p) \]
+        It follows that 
+        \[ \dv{}{s}\Big|_{s=0} ( f\circ (\Phi^t \circ \Psi^s)(p)) = Y_p(f \circ \Phi^t) = ((\Phi^t)_*Y)_{\Phi^{t}(p)}(f)  = Y_{\Phi^{t}(p)}(f) \]
+        So $\gamma$ is a curve with $\dv{}{s} \, \gamma = Y$ and $\gamma(0) = \Phi^t(p)$, i.e. integral curve to $Y$. But the curve 
+        \[ s \mapsto (\Psi^s \circ \Phi^t)(p) = \Psi(s, \Phi^t(p))\] 
+         is also integral curve, hence by uniqueness 
+        \[ \Phi^t \circ \Psi^s = \Psi^s \circ \Phi^t \] 
+    \end{enumerate}
+\end{proof}
+
+\begin{lemma}
+    Let $X_1, \dots, X_k \in \mathfrak{X}(M)$ be such that pairwise 
+    \[ [X_i, X_j]  = 0 \]
+    and $(X_1)_p, \dots, (X_k)_p $ are linearly independent in $T_pM$ at all $p \in M$. Then around every $ p \in M$ there is a chart $(U, \phi)$ such that 
+    \[ \phi_* X_i = \pdv{}{x_i}\]
+\end{lemma}
+
+\begin{lemma}
+    As the problem is loca
+\end{lemma}
+
+\begin{proof}
+    
+\end{proof}
+\section{Integrability and Frobenius theorem }
+In the last section on flows, integrability of vector field was discussed, i.e. whether for a given vector field one can find a integral curve: a curve that is always tangent to the vector field at that point.Physically one can imagine the vector field being a direction and strength of a wind field in $\R^3$ and integral curves to be ropes suspended in the air, whose shape aligns to that of the wind surrounding it. One can generalize this by saying there are two sets of wind fields (e.g. the wind profile is different in the morning and the evening). If one suspends a rope, the shape of the rope will differ at day and night, but what about a 2 dimensional surface like a sheet ? Will the form of the sheet look different when suspended in the two different wind fields ? 
+
+\begin{example}
+    Consider $M = \R^3$ and the vector fields 
+    \[ X = \pdv{}{x} + y \pdv{}{z}, Y = \pdv{}{y} \]
+    One cannot find "integral surfaces" to these two fields. One can pictorially imagine that there is no shape of sheet that can accomodate being tangent to both wind fields. 
+\end{example}
+
+\begin{remark}
+    Again the commutator of the vector fields can be interpreted as how to go about to create this sheet. One needs to "integrate" separately the two directions and the compatibility criterion to stitch the sheet together is precise that the commutator stays within the distribution. If the commutator does not vanish, this simply means that "the strength" of the vector field is different when applied in different order, but that does not matter to the shape itself. 
+\end{remark}
+\begin{definition}
+    A smooth subbundle of $TM$ is called smooth distribution. 
+\end{definition}
+\begin{definition}
+    A submanifold $i : S \xhookrightarrow{} M$ is called an integral submanifold for $M$ if 
+    \[ \forall  p \in S : T_pS = E_p \]
+\end{definition}
+
+\begin{definition}
+    A smooth distribution $E$ is called \textbf{integrable} if for every point $p \in M$ there is an integral submanifold for $E$ that contains $p$. 
+\end{definition}
+
+\begin{theorem}(Frobenius theorem)\\
+    For a distribution the following are equivalent 
+    \begin{enumerate}
+        \item $E$ is integrable 
+        \item $\Gamma(E)$ is closed under $[-, - ]$. 
+        \item There is an atlast $\{ (U_i, \phi_i) \}$ for $M$ such that 
+        \[ \vspan_{\R}\left(\pdv{}{x^1}, \dots, \pdv{}{x^k}\right) = (\phi_i)_{*, p}(E_p)\]
+    \end{enumerate}
+\end{theorem}
+\begin{proof}
+    In three steps 
+    \begin{enumerate}
+        \item $(3) \Rightarrow (1)$: 
+        \item $(1) \Rightarrow (2)$: Let $X,Y \in \Gamma(E)$. Let $p \in M$. As $E$ is integrable there is integral submanifold $S$ with $p \in S$. As $X,Y$  are tangent to $S$ at $p$ there exist $X|_S, Y|_S \in \Gamma(TS)$ such that 
+        \[ \forall p \in S : i_{*, p}(X|_S)_p = X_p \quad  i_{*, p}(Y|_S)_p = Y_p \]
+        By naturality of the Lie bracket and integrality of $S$ one obtains 
+        \[ \forall p \in S : [X,Y]_p = i_{*,p}[X|_S, Y|_S]_p  \in i_{*,p}(T_pS) \subset E_p \]
+        Hence $[X,Y]_p \in E_p$.  
+    \end{enumerate}
+\end{proof}
+\section{Multilinear algebra }
+
+\begin{definition}
+    Let $V,W$ be real vector spaces. Their tensor product is a vector space denoted $V \otimes W$ together with a bilinear map $\iota : V \times W \to V \otimes W $ that satisfies the universal property: for any bilinear $h: V \times W \to U$ there is unique linear map $\overline{h} : V \otimes W \to U$ such that 
+    \[ h = \overline{h} \circ \iota \]
+    Denote $T^k(V) = V \otimes \dots \otimes V$ and $v \otimes w := \iota(v,w)$.  
+\end{definition}
+
+\begin{definition}
+    Let $V$ be real vector space. Define the $k$-th exterior product as the quotient 
+    \[ \Lambda^k(V) := T^k(V) / J^k(V) \qquad J^k(V) = \vspan{ \{ v_1 \otimes \dots \otimes v_k | \exists i \neq j : v_i = v_j \}  } \]
+    Denote 
+    \[ v_1 \wedge \dots \wedge v_k :=  [v_1 \otimes \dots \otimes v_k ]\]
+    The exterior algebra is defined as  
+    \[ \Lambda(V) := \bigoplus_{k=0}^{\dim(V)} \Lambda^k(V) \]
+\end{definition}
+
+\begin{lemma}
+    For $f : V_1 \to W_1, g: V_2 \to W_2$ linear, there exists a unique linear map 
+    \[ f \otimes g : V_1 \otimes V_2 \to W_1 \otimes W_2, \]
+\end{lemma}
+\begin{proof}
+    Consider the bilinear map $V_1 \times V_2 \to W_1\otimes W_2$ given by $(v_1, v_2) \mapsto i(f(v_1), g(v_2)) $, where $i: W_1 \times W_2 \to W_1 \otimes W_2$ is the inclusion. By universal property this map factors through, i.e.  there exists a unique linear map $f\otimes g : V_1 \otimes V_2 \to W_1 \otimes W_2$ with the desired properties. 
+\end{proof}
+
+\begin{lemma}
+    For $f: V \to W$ linear there is unique map 
+    \[ \wedge^k f : \Lambda^k(V) \to \Lambda^k(W) \]
+\end{lemma}
+\begin{proof}
+    By previous lemma, there is unique $f \otimes \dots \otimes f : T^k(V) \to T^k(W) $. Postcompose with the quotient map $q : T^k(W) \mapsto T^k(W) / J^k(W) $. One sees that $J^k(V) \subset \ker(q \circ (f\otimes \dots \otimes f) ) $, hence it descends to a map $\Lambda^k(V) \to \Lambda^k(W)$. Explicitly this map sends $v_1 \wedge \dots \wedge v_k \mapsto f(v_1) \wedge \dots \wedge f(v_k) $.  
+\end{proof}
+\noindent Usually when working with exterior algebras of dual spaces, one is more interested in an alternative, computationally usable representation of this space, rather than the mere algebraic definition. 
+\begin{lemma}
+    Let $V$ be a real vector space. There is a canonical isomorphism 
+    \[ \Phi : V^* \otimes \dots \otimes V^* \to L(V\times \dots \times V, \R )\]
+\end{lemma}
+\begin{lemma}
+    Let $V$ be a real vector space. There is a canonical isomorphism given by 
+    \[ \Phi : \Lambda^n (V^*) \to \Alt(V\times \dots \times V , \R) \]
+    \[ e^*_{i_1} \wedge \dots \wedge e^*_{i_k} \mapsto ( (v_1, \dots, v_k) \mapsto \sum_{\sigma \in S_k} sgn(\sigma) e^*_{i_1}(v_{\sigma(1)}))\cdot \dots \cdot e^*_{i_k}(v_{\sigma(k)}) \]
+\end{lemma}
+\noindent In this sense we can identify always the spaces and treat them as such.
+
+\section{Differential forms}
+There is a manifold version of the last two lemmas: 
+
+\begin{lemma}(Tensor characterization lemma)\\
+    There is an ismorphism of $C^\infty(M)$ modules 
+    \[ \Gamma(T^*M \otimes \dots \otimes T^*M) \to \Mult_{C^\infty(M)}(\mathfrak{X}(M) \times \dots \times \mathfrak{X}(M), C^\infty(M)) \]
+    Similary there is an isomorphism of $C^\infty(M)$ modules given as 
+    \[ \Omega^k(M) = \Gamma(\Lambda^k (T^*M)) \to \Alt_{C^\infty(M)}(\mathfrak{X}(M) \times \dots \times \mathfrak{X}(M), C^\infty(M))\]
+\end{lemma}
+
+\begin{definition}
+    We define the exterior derivative $\d{_0} : \Omega^*(\R^n) \to \Omega^{*+1}(\R^n) $ as 
+    \[ \d{_0} \omega = \d{_0} \left( \sum_{I} f_I \d{x^I} \right)  = \sum_{I} \d{f_I} \wedge \d{x^I}\]
+\end{definition}
+
+\begin{definition}
+    We define the exterior derivative $\d{ }: \Omega^*(M) \to \Omega^{*+1}(M)$ as 
+    \[ \d{\omega} = \d{}  \left( \sum_{\alpha} \rho_\alpha \omega \right) = \sum_{\alpha} \rho_\alpha \phi_\alpha^*\d{_0}((\phi_\alpha^{-1})^* \omega)  \]
+    where $\{ (U_\alpha, \phi_\alpha) \} $ coveres $M$ by charts and $\{ \rho_\alpha\}$ is a p.o.u. subordinate to it. 
+\end{definition}
+
+\begin{lemma}
+    The so defined exterior derivative is independent of the chosen charts. It is the unique $\R$ linear map $\d{ } : \Omega^*{M} \to \Omega^{*+1}(M)$ that satisfies 
+    
+    \begin{enumerate}
+        \item $\d{f}$ is ordinary differential for $f \in \Omega^0(M) = C^\infty(M) $. 
+        \item $\d{(\omega \wedge \eta)}  = \d{\omega} \wedge \eta + (-1)^{\deg(\omega)} \omega \wedge \d{\eta} $ 
+        \item $\d{} \circ \d{} = 0 $ 
+        \item $F^*\d{\omega} = \d{F^*\omega} $ for any smooth $F: N \to M$ between manifolds $N,M$. 
+    \end{enumerate}
+    Locally it reads 
+    \[ \d{\omega}|_{U_\alpha} = \phi_\alpha^*\d{_0}((\phi_\alpha^{-1})^* \omega)  = \sum_I \d{\omega_I} \wedge \d{x^I}  \]
+\end{lemma}
+
+\begin{lemma}
+    Let $\alpha \in \Omega^1(M)$. Then 
+    \[ \d \alpha(X,Y) = \mathcal{L}_X(\alpha(Y)) - \mathcal{L}_Y(\alpha(X)) - \alpha([X,Y])\]
+    And it furthermore holds 
+    \[ \d \alpha(X,Y) = (\mathcal{L}_X \alpha)(Y) - \mathcal{L}_Y(\alpha(X)) \]
+\end{lemma}
+
+\begin{definition}
+    Let $X \in \mathfrak{X}(M)$. Define the contraction map as 
+    \[ \iota_X : \Omega^*(M) \to \Omega^{*-1}(M) \]
+    \[ \omega \mapsto \omega(X,-) \]
+    It is straightforward to see that 
+    \[ \iota_X \circ \iota_X = 0 \]
+    \[ \iota_X(\omega \wedge \eta) = (\iota_X \omega) \wedge \eta + (-1)^{\deg(\omega)} \omega \wedge \iota_X\eta \]
+\end{definition}
+
+\begin{lemma}(Cartan formula)\\
+    It holdds on $\Omega^*(M)$ 
+    \[ \mathcal{L}_X = \d{} \circ \iota_X  + \iota_X \circ \d{} \]
+    
+\end{lemma}
+
+\section{Orientations}
+
+\begin{definition}
+    Definition of orientation: 
+    \begin{enumerate}
+        \item Let $V$ be $n$ dimensional vector space. An orientation on $V$ is an element $[\omega] \in \mathcal{O}_V $ where 
+        \[ \mathcal{O}_V := \Lambda^n(V^*) / \sim   \]
+        where $ \omega \sim \omega' $ if $\exists \lambda > 0 $ with $\omega = \lambda \omega'$. 
+        \item Let $\pi: E \to B $ be a $k$ dimensional vector bundle. An orientation on $E$ is an element $[\omega] \in \mathcal{O}_E$ where 
+        \[ \mathcal{O}_E = \{ \omega \in \Lambda^k(E^*) |  \omega(x) \neq 0 \forall x \in B \} / \sim  \]
+        where $\omega \sim \omega'$ if $\exists f \in C^\infty(B), f>0$ with $\omega = f \omega' $. $E$ is said to be orientable if it admits an orientation. 
+        \item A manifold $M$ is orientable if $TM$ is orientable. 
+    \end{enumerate}
+    It can be seen that if $E$ is orientable and $B$ is connected, there are precisely two orientations $\omega_{\pm}$, as $\Lambda^k(E)$ is a line bundle. 
+\end{definition}
+
+\begin{remark}
+    If $f\omega: V \to V$ linear, $\dim(V)=n$, then the induced map is $f \wedge \dots \wedge f : \Lambda^nV \to \Lambda^n V $ is equal to 
+    \[ \wedge^n f = \det(f) \]
+    Hence the transition functions for $\Lambda^k(E)$ are actually 
+    \[ \det(t_{\beta \alpha}) \]
+\end{remark}
+
+\begin{lemma}\label{orientation_lemma}
+    Let $\pi: E \to B$ be a vector bundle. Then 
+    \[ \text{E is orientable} \Leftrightarrow  \text{E has structure group } G = GL(k, \R)^+ \]
+    In particular, when $M$ is smooth manifold with smooth structure $[\mathcal{A}]$:  
+    \[ M \text{ is orientable} \Leftrightarrow \exists \mathcal{A} \in [\mathcal{A}]: \det(D_{\phi(x)}(\psi \circ\phi^{-1})) > 0 \quad \forall  (U, \phi), (V, \psi) \in \mathcal{A}  \]
+\end{lemma}
+\begin{definition}
+    Any atlas $\mathcal{A}$ that satisfies the condition above is called oriented atlas. 
+\end{definition}
+\begin{definition}
+    An oriented manifold $M$ is an orientable smooth manifold $M$, together with an oriented smooth structure $[\mathcal{A}]_{o}$ where  $\mathcal{A} \in [\mathcal{A}]$ is a choice of an oriented atlas, where $[\mathcal{A}]$ is the smooth structure of $M$. \footnote{again one considers the equivalence class of oriented atlases that induce the same orientation} 
+\end{definition}
+
+\iffalse 
+\begin{definition}
+    Let $F: N \to M$ be local diffeomorphism of orientable manifolds and $\nu_{\pm}, \omega_{\pm}$ their respective orientations. $F$ is said to be orientation preserving if 
+    \[ F^* \omega_{\pm} = \nu_{\pm}\]
+    and orientation reversing if 
+    \[ F^* \omega_{\pm} = \nu_{\mp}\]
+\end{definition}
+\fi 
+
+\begin{lemma}
+    It holds that $F: N \to M $ orientation preserving if and only if $\forall p \in N$ and chart $(U,\phi), (V, \psi)$ around $p, F(p)$ it holds 
+    \[  \det\left( D_{\phi(p)}(\psi \circ F \circ \phi^{-1}) \right)  > 0  \] 
+\end{lemma}
+
+\begin{definition}
+    Let $M$ be manifold with boundary and $\mathcal{A}$ be oriented atlas. A vector $X_p \in T_pM$ at $p \in \partial M$ is said to be \textbf{inward/ outward pointing} if $X_p(x^n) > 0 / X_p(x^n) < 0 $ for any (and therefore all) chart $(U, \phi) \in \mathcal{A}$. A vector field $X \in \mathfrak{X}(M) $ is said to be inward/ outward pointing if $X_p$ is inward/ outward pointing for all $p \in \partial M$. 
+\end{definition}
+
+\begin{lemma}
+    Inward/ outward pointing is well defined. 
+\end{lemma}
+\begin{proof}
+    Suppose $X_p$ is inward pointing at $p \in \partial M$, i.e. there is chart $\phi = (x^1, \dots, x^n)$ with $X_p(x^n) > 0$. Take a different chart $\psi = (y^1, \dots, y^n)$. Then 
+    \[ X(y^n) = \pdv{y^n}{x^k} X(x^k) = \pdv{y^n}{x^n} X(x^n)  \]
+    since $\pdv{y^n}{x^k} = 0 $ for $n\neq k$ because $p\in \partial M$. Lastly, as $y^n : V \to [0,\infty) $ and $y^n(p) = 0$ it follows that $\pdv{y^n}{x^n} > 0$. Hence $X(y^n) >0 $ as well. 
+\end{proof}
+
+\begin{lemma}
+    Given oriented manifold $M$ with boundary, there is an outward pointing vector field $Z$. 
+\end{lemma}
+\begin{proof}
+    Cover $M$ with coordinate charts $\{ (U_\alpha, \phi_\alpha) \}$ and take p.o.u. $\{\rho_\alpha \} $ subordinate to it. Then define 
+    \[ X = \sum_{\alpha} \rho_\alpha \left( \pdv{}{x_\alpha^n} \right) \]
+    This is checked to be a actually contained in $\mathfrak{X}(M)$ and that $X$ is inward pointing. Taking $-X$ yields a outward pointing vector field. 
+\end{proof}
+
+\begin{proposition}
+    Let $M$ be oriented manifold with boundary. Let $\omega \in \Omega^n(M)$ represent the orientation. The 
+    Stokes orientation on $\partial M$ is defined as 
+    \[ i^*(\iota_Z\omega) \in \Omega^{n-1}(\partial M) \]
+    where $i: \partial M \xhookrightarrow{} M$, where $Z$ is any outward pointing vector field from previous lemma. In particular, $\partial M$ is also an orientable manifold. 
+\end{proposition}
+
+\begin{observation}
+    So let $\phi = (x^1, \dots, x^n) \in \mathcal{A}$ an oriented chart from oriented manifold $M$. Denote $\partial \mathcal{A}$ be the oriented atlas corresponding to the Stokes orientation on $\partial M$. Choose a chart $\psi = (y^1, \dots, y^{n-1}) \in \partial \mathcal{A}$. This means that 
+    \begin{align*}
+        i^*(\iota_Z\omega)( \pdv{}{y^1}, \dots, \pdv{}{y^{n-1}})  &= \omega(Z, \pdv{}{y^1}, \dots, \pdv{}{y^{n-1}})  = (-1)^n \omega(\pdv{}{y^1}, \dots, \pdv{}{y^{n-1}}, -Z) \\ 
+        &= |Z(y^n)| \cdot (-1)^n \omega(\pdv{}{y^1}, \dots, \pdv{}{y^{n-1}}, \pdv{}{y^n}) \\
+        &= \lambda \det(D_p(\psi \circ \phi^{-1})) (-1)^n \omega(\pdv{}{x^1}, \dots, \pdv{}{x^n})  > 0 
+    \end{align*}
+    where $\lambda > 0 $ and $Z(y^n) > 0 $. Hence we see that 
+    \[ \sgn\left( \det( D_p(\psi \circ \phi^{-1}))  \right) = \sgn((-1)^n)  \]      
+
+\end{observation}
+
+
+\section{Integration}
+\begin{definition}
+    For open $V \subset \R^n$ define the map 
+    \begin{align*}
+        \int_{V} : \Omega^n_c(V) &\to \R  \\
+     \omega &\mapsto \int_V \omega_x(e_1, \dots, e_n) \d{}^nx 
+    \end{align*}
+    where the latter integral is the Lebesgue integral and $\{ e_i \} \subset \R^n$ is the standard basis.
+\end{definition}
+
+\begin{lemma}
+    Let $F: V \to W $ be orientation preserving/ reversing diffeomorphism. Then 
+    \[ \int_{V} F^* \omega = \pm \int_{W} \omega \qquad \omega \in \Omega^n_c(W) \]
+\end{lemma}
+
+\begin{proof}
+    By observation it holds 
+    \[ (F^*\omega)_x(e_1, \dots, e_n) = \omega_{F(x)}(F_{*,x}e_1, \dots, F_{*,x} e_n) = \omega_{F(p)}(D_xF e_1, \dots, D_xF e_n) = \det(D_xF) \omega_{F(p)}(e_1, \dots, e_n)  \] 
+    %\begin{align*}
+     %   ((\phi_\alpha^{-1})^* (\eta_\beta \rho_\alpha \omega))_x(e_1, \dots, e_n)  &= ((\psi_\beta \circ \phi_\alpha^{-1})^* (\psi_\beta^{-1})^* (\eta_\beta \rho_\alpha \omega))_x(e_1, \dots, e_n)\\ &= \det(D_x(\psi_\beta \circ \phi^{-1}_\alpha)) \cdot (\psi_\beta^{-1})^* (\eta_\beta \rho_\alpha \omega)_{(\psi_\beta \circ \phi^{-1}_\alpha) (x)}(e_1, \dots, e_n )
+    %\end{align*}
+    By assumption, $F$ is orientation preserving/ reversing , so by definition $\det(D_xF) > 0 / \det(D_xF) < 0 , \forall x \in V $. Hence 
+    \begin{align*}
+        \int_V F^* \omega &= \int_V (F^*\omega)_x(e_1, \dots, e_n) \d{}^nx = \int_V \det(D_x F) \omega_{F(p)}(e_1, \dots, e_n) \d{}^nx  \\
+        &= \pm \int_V |\det(D_xF)| \omega_{F(p)}(e_1, \dots, e_n) \d{}^n x  =  \pm \int_W \omega_x(e_1, \dots, e_n) \d{}^n x =  \pm  \int_W \omega 
+    \end{align*}
+    where the penultimate equality comes from the standard transformation theorem for integrals. 
+\end{proof}
+
+\begin{definition}
+    Let $M$ be orientable $n$ dimensional manifold, with a choice of orientation $\mathcal{A}$.  Take a cover $\{ (U_\alpha, \phi_\alpha ) \}  \subset \mathcal{A}$ of $M$ by charts and let $\{ \rho_\alpha \}$ be a p.o.u. subordinate to it. Define the map 
+    \begin{align*}
+         \int_M : \Omega_c^n(M) &\to \R  \\
+     \omega &\mapsto  \sum_{\alpha} \int_{\phi_\alpha(U_\alpha)} (\phi_\alpha^{-1})^* (\rho_\alpha \omega)
+    \end{align*}
+    
+\end{definition}
+\begin{proposition}
+    The above map is well defined and independent of choice of p.o.u.
+\end{proposition}
+
+\begin{proof}
+    The map is well defined as $\omega$ is compactly supported and hence only finitely many terms are non zero. Let $\{ (V_\beta, \psi_\beta) \} \subset \mathcal{A}$ be another open cover of $M$ and $\{ \eta_\beta \}$ be p.o.u. subordinate to it. Then 
+    \begin{align*}
+        \sum_{\alpha} \int_{\phi_\alpha(U_\alpha)} (\phi_\alpha^{-1})^* (\rho_\alpha \omega) &= \sum_{\alpha \beta } \int_{\phi_\alpha(U_\alpha)} (\phi_\alpha^{-1})^* (\eta_\beta \rho_\alpha \omega)  \\
+        &= \sum_{\alpha \beta } \int_{\phi_\alpha(U_\alpha \cap V_\beta)} (\phi_\alpha^{-1})^* (\eta_\beta \rho_\alpha \omega)
+    \end{align*}
+    where last equality holds because 
+    \[ \supp (\eta_\beta \rho_\alpha \omega) \subset U_\alpha \cap V_\beta\] 
+    By functoriality of pullbacks  for the equality $\phi_\alpha^{-1} = \psi_\beta^{-1} \circ \psi_\beta \circ \phi_\alpha^{-1}$ it holds 
+    \[  (\phi_\alpha^{-1})^*=   (\psi_\beta \circ \phi_\alpha^{-1})^* (\psi_\beta^{-1})^*\]
+    Now as $M$ is orientable, by \ref{orientation_lemma} it holds that $(\psi_\beta \circ \phi_\alpha^{-1})$ is orientation preserving diffeomorphism. Hence with the previous lemma 
+    \begin{align*}
+        \sum_{\alpha \beta } \int_{\phi_\alpha(U_\alpha \cap V_\beta)} (\phi_\alpha^{-1})^* (\eta_\beta \rho_\alpha \omega) &= \sum_{\alpha \beta } \int_{\phi_\alpha(U_\alpha \cap V_\beta)} (\psi_\beta \circ \phi_\alpha^{-1})^* (\psi_\beta^{-1})^* (\eta_\beta \rho_\alpha \omega)  \\
+        &= \sum_{\alpha \beta } \int_{\psi_\beta(U_\alpha \cap V_\beta)} (\psi_\beta^{-1})^* (\eta_\beta \rho_\alpha \omega) \\
+        &= \sum_{ \beta } \int_{\psi_\beta( V_\beta)} (\phi_\alpha^{-1})^* (\eta_\beta \omega)
+    \end{align*}
+
+\end{proof}
+
+\begin{theorem}(Stoke's theorem)\\
+    Let $M$ be smooth oriented manifold with boundary of dimension $n$. With $i: \partial M \xhookrightarrow{} M $, it holds 
+    \[ \int_M \d \omega = \int_{\partial M}i^* \omega \qquad \omega \in \Omega^{n-1}_c(M) \]
+    where $\partial M$ is carries the induced orientation. 
+\end{theorem}
+
+\begin{proof}
+    Proceed in several steps. 
+    First consider only charts wlog with $\phi: U \to \R^n$ as can be seen from remark \ref{locally_euclidean}. Then with $\mathcal{A} = \{ (U, \phi)\}$ the oriented atlas on $M$, denote $\partial \mathcal{A} = \{ (\tilde{V}, \tilde{\psi}) \} $ the induced atlas on $\partial M$. where 
+    \[ \tilde{\psi} = \pr(\psi|_{V \cap \partial M }) \]
+    Then basically compare for orientation stuff 
+    \[ \int_{\R^n} (\phi^{-1})^* \d{\omega} \]
+    \[ \int_{\R^{n-1}} (\tilde{\psi}^{-1})^*(i^*\omega)\]
+    and now we need to do 
+    \[  \int_{\R^{n-1}} (\tilde{\phi} \circ \tilde{\psi}^{-1})^*(\tilde{\phi}^{-1})^*(i^*\omega = (-1)^n \int_{\R^{n-1}} (\tilde{\phi}^{-1})^*(i^*\omega))\]
+    and then proceed further. 
+    \begin{enumerate}
+        \item Suppose $M= \Hp^n$. Represent 
+        \[ \omega = \sum f_i \d{x_1} \wedge \dots \wedge \widehat{\d{x_i}} \wedge \dots \wedge \d{x_n} \]
+        \begin{enumerate}
+            \item $i<n$: Then $i^* \omega = 0$, so $\int_{\partial \Hp^n } = 0 $.  
+            \item asdasd 
+        \end{enumerate}
+        
+        \item 
+    \end{enumerate}
+\end{proof}
+
+\section{deRham cohomology}
+Let $M$ be smooth manifold of dimension $\dim(M) = n$. Consider the cochain complex of $\R$ vector spaces 
+\[ \begin{tikzcd}
+    0 \arrow{r} & \Omega^0(M) \arrow{r}{\d{}} & \Omega^1(M) \arrow{r}{\d{}} & \dots \arrow{r}{\d{}} & \Omega^k(M)  \arrow{r} & 0 
+\end{tikzcd}\]
+
+\begin{definition}
+    Define the $k$-th de Rham cohomology group to be 
+    \[ H^k_{dR}(M) = \ker(d|_{\Omega^k(M)}) / \image(d|_{\Omega^{k+1}}) \]
+    The de Rham cohomology is then 
+    \[ H^*_{dR}(M) := \bigoplus_{k=0}^n H^k_{dR}(M) \]
+\end{definition}
+
+\begin{definition}
+    A form $\omega \in \Omega^k(M)$ is \textbf{closed} if $\d{\omega} =0$ and \textbf{exact} if $\exists \alpha \in \Omega^{k-1}(M) $ with $\d{\alpha} = \omega $. 
+\end{definition}
+
+\begin{proposition}
+    The wedge product 
+    \[ \Omega^k(M) \times \Omega^l(M) \to \Omega^{k+l}(M) \]
+    \[ (\omega, \eta) \mapsto \omega \wedge \eta \]
+    descends to a well defined map 
+    \[ H_{dR}^k(M) \times H_{dR}^l(M) \to H_{dR}^{k+l}(M) \]
+    \[ ([\omega], [\eta]) \mapsto [\omega \wedge \eta]  \]
+\end{proposition}
+
+\begin{remark}
+    This makes $H^*_{dR}(M)$ into a graded commutative algebra. 
+\end{remark}
+\begin{proposition}
+    Let $f: M \to N$ be smooth map. The pullback $f^*: \Omega^*(N) \to \Omega^*(M)$ descends in cohomology to an algebra homomorphism  
+    \[ f^* : H^*_{dR}(N) \to H^*_{dR}(M)\]
+    \[ [\omega] \mapsto [f^* \omega] \]
+\end{proposition}
+
+There is a subcomplex of compactly supported forms $\Omega^k_c(M) \subset \Omega^k(M)$, hence define: 
+\begin{definition}
+    Define the $k$-th de Rham cohomology group of compactly supported forms to be 
+    \[ H^k_{dR, c }(M) = \ker(d|_{\Omega_c^k(M)}) / \image(d|_{\Omega_c^{k+1}}) \]
+    The de Rham cohomology is then 
+    \[ H^*_{dR, c}(M) := \bigoplus_{k=0}^n H^k_{dR, c}(M) \]
+\end{definition}
+
+\begin{theorem}
+    Let $M$ be smooth $n$ dimensional oriented manifold without boundary. Then $\int_M$ descends to cohomology yielding a well-defined, surjective map 
+    \[ \int_M : H^n_{dR, c} \to \R \]
+    \[ [\omega] \mapsto \int_M \omega  \]
+\end{theorem}
+
+
+\section{Connections, Covariant Derivative and Curvature}
+
+Given a section $s \in \Gamma(E)$ analogously to the Frechet derivative 
+considered in Analysis 2, the derivative of $s$ must be a function that 
+for every point $p$ in the domain $B$, outputs a linear map that sends from the input space 
+$T_pX$ (i.e. the possible direction of movement) an element from the codomain 
+that quantifies the change of $s$ in that direction. A linear map from 
+the tangent space to $E$ can be modelled as an element of $E\otimes T^*M$ 
+and since vector wise addition only makes sense within the same firbre it must 
+be a section. 
+\begin{definition}
+    The covariant derivative $d^{\mathcal{A}}$ is a $\mathbb{K}$ linear map
+    \[ d^{\mathcal{A}} : \Gamma(E) \to \Gamma(E \otimes T^{*}M)\]
+    that satisfies the Leibnitz rule 
+    \[ d^{\mathcal{A}}(fs) = s \otimes \d f + f d^{\mathcal{A}}(s)  \]
+\end{definition}
+
+Now we want a coordinate based description. Thus take a patch $U\subset B$ 
+with local trivialization $\Phi : \pi^{-1}(U) \to U \times \mathbb{R}^k$. Since this is 
+a diffeomorphism, there is a local frame $e_1, \dots , e_k \in \Gamma(\pi^{-1}(E))$
+that at each point $p \in U$ it serves as a basis. 
+\begin{definition}
+    For a given local trivialization over $U_\alpha$ we can define a local frame $e_1, \dots, e_n$. Then we know that any element of $\Gamma(E \otimes T^*M)$ can be written as. Hence there must exist some function $\Gamma^k_{il}$ such that 
+    \[ d^{\mathcal{A}} (e_i) = \Gamma^{k}_{il} e_k \otimes \d x^l  = e_k \otimes (\Gamma^k_{il}\d x^l) = e_k \otimes A^k_i \]
+    As one can see, the matrix 1 form is 
+    \[ A^k_i = \Gamma^k_{il} \d x^l \]
+\end{definition}
+Compute now 
+\begin{align}
+    d^{\mathcal{A}}(\sigma) &= d^{\mathcal{A}}(\sigma^ie_i) = (d^{\mathcal{A}}e_i) \wedge \sigma^i + e_i \otimes \d \sigma^i \\ 
+    &= (\Gamma^j_{ik}e_j \otimes \d x^k) \wedge \sigma^i + e_i \otimes \d \sigma^i \\
+    &= e_j \otimes (\Gamma^j_{ik} \d x^k) + e_i \otimes \d \sigma^i \\
+    &= e_j \otimes (A^j_i \wedge \sigma^i + \d \sigma^j)
+\end{align}
+which again can be sen as a section of $\Gamma(E \otimes \bigwedge^{r+1}T^*M)$
+\\
+Further by computation 
+\begin{align}
+    (d^{\mathcal{A}})^2(\sigma) &= d^{\mathcal{A}}(e_j \otimes (A^j_i \wedge \sigma^i + \d \sigma^j)) \\
+                                &= e_j \otimes \d ( A^j_i \wedge \sigma^i + \d \sigma^j) + d^{\mathcal{A}}e_j \wedge (A^j_i \wedge \sigma^i + \d \sigma^j)\\
+                                &= e_j \otimes(\d A^j_i \wedge \sigma^i - A^j_i\wedge  \d\sigma^i) + e_k \otimes A^k_j \wedge A^j_i \wedge \sigma^i + e_k \otimes A^k_j \wedge \d \sigma^j \\
+                                &= e_j \otimes \left[ (\d A^j_i + A^j_k \wedge A^k_i) \wedge \sigma^i \right] 
+\end{align}
+Such that we can define $F \in \Omega^r(End(E))$ to be 
+\[ Fe_i := e_j \otimes \left[ (\d A^j_i + A^j_k \wedge A^k_i) \right] \] 
+We still need to check the transformation property though. But then 
+\[ (d^{\mathcal{A}})^2(\sigma) = Fe_i  \wedge \sigma^i=F \wedge e_i\sigma^i = F \wedge \sigma  \] 
+\begin{proposition}
+    $F$ whose map action is defined fiberwise as 
+    \[ F : E \mapsto E \otimes \bigwedge  ^2 T^*M \]
+    \[ e_i \mapsto e_j \otimes \left[ (\d A^j_i + A^j_k \wedge A^k_i) \right] \]
+    is an element of the endomorphism bundle. 
+\end{proposition}
+\begin{proof}
+    Let $U_\beta$ be another open subset of $B$, with intersection on $U_\alpha$. 
+    Then by direct computation and insertion of  
+    \[ A_\alpha = g^{-1}_{\beta \alpha}\d g_{\beta \alpha} + g^{-1}_{\beta \alpha}A_\beta g_{\beta \alpha}\]
+    one arrives at 
+    \[ Fe_i = e_j \otimes g^{-1}_{\beta \alpha}\left(\d A_\beta + A_\beta \wedge A_\beta\right) g_{\beta \alpha}\]
+    Now with a new frame $\tilde{e}_k$ on $U_\beta$, and transition 
+    \[ \tilde{e}_i = (g_{\beta \alpha})_{ij} e_j \]
+    \[ F\tilde{e}_i = (g_{\beta \alpha})_{ij}Fe_j =(g_{\beta \alpha})_{ij} e_k (g_{\beta \alpha}^{-1})_{km}\otimes (\d A_\beta + A_\beta \wedge A_\beta)_{mn}(g_{\beta \alpha})_{nj} \]
+
+\end{proof}
+
+\subsection{Induced Connections}
+\subsubsection{Dual bundle}
+Given connection $A$ on $E$ , we can form naturally a connection on $E^*$ as follows. Given $\omega \in \Gamma(T^*M)$ we need 
+\[ d^{A^*}w \in \Gamma(E^* \otimes T^*M) \]
+It turns out that the following is the correct way. We investigate $d^{A^*}w$ by acting on some section $s \in \Gamma(E)$. So propose
+\[ (d^{A^*}w)(s) = \d(w(s)) - w(d^{A}s)\]
+Clearly it satisfies Leibnitz rule, i.e. $\forall g \in C^\infty(M)$: 
+\[ (d^{A^*}g\omega)(s)= \omega(s)\otimes \d g + g \d(\omega(s)) - g \omega(d^A s) = \omega(s) \otimes \d g + g(d^{A^*}\omega)(s)\]
+And it is actually a proper smooth section (c.f. chapter 1), which can be checked by showing that it is $C^\infty(M)$ linear (this justifies the negative sign)
+\begin{align*}
+    (d^{A^*}\omega)(fs) &= \d(\omega(fs)) - \omega(d^Afs) = \d(f\omega(s)) - \omega(s \otimes \d f + f d^A s)  \\
+    &= \d f \cdot w(s) + f \cdot \d(\omega(s))- \omega(s) \d f - f \omega(d^A s) \\ 
+    &= f \cdot (\d(\omega(s)) - \omega(d^A s))
+\end{align*}
+where it was used that $\omega$ itself is also $C^\infty(M)$ linear. The structural similarity to the original connectoin can be seen as follows: In local trivializations 
+
+\begin{align*}
+     d^A s &= e_j \otimes (\d s^j + A^{j}_i s^i ) \\ 
+     \\
+    (d^{A^*}\omega)(s) &= \d(w_ie^{*i}(s^je_j)) - w_i e^{*i}(e_j \otimes (\d s^j + A^j_i s^i)) \\
+    &= \d(\omega_is^i) -\omega_j(\d s^j + A^j_i s^i)  = (\d \omega_i - A^{j}_i \omega_j) s^i \\
+    &= \left( e^{*i}\otimes(\d \omega_i - A^j_i \omega_j)\right) (s)
+\end{align*}
+for all $ s\in \Gamma(E)$. 
+
+\subsubsection{Tensor bundle}
+If we have connections $A, A'$ on $E, E'$ respectively one can induce a connection on $E\otimes E'$ as follows 
+\[ d^{A \otimes A'}(v \otimes w) := (d^A v \otimes w) + (v \otimes d^{A'} w)  \]
+for $v \otimes w \in E\otimes E'$ and extend linearly on the fibers. 
+
+
+\begin{example}
+    A Riemannian metric is a section $g \in \Gamma(E^* \otimes E^*)$. We can assume that $g = \sum_{ij} \omega_i \otimes \eta_j $ for some $\omega_i, \eta_j \in \Gamma(E^{*})$. With a given connection $A$ on $E$ it follows then that for any $v \otimes w \in \Gamma(E \otimes E)$ that 
+    \begin{align*} (d^{A^*\otimes A^*}\omega  \otimes \eta)(v,w) &= (d^{A^*}\omega \otimes \eta)(v,w) + (\omega \otimes d^{A^*}\eta )(v,w) \\ 
+        &= (d^{A^*}\omega)(v) \eta(w) + \omega(v) (d^{A^*}\eta)(w) \\ 
+        &= [\d \omega(v) - \omega(d^Av)]\eta(w) + \omega(v)[\d \eta(w) - \eta(d^Aw)] \\ 
+        &= \d(\omega(v)\eta(w)) - \omega(d^Av)\eta(w) - \omega(v) \eta(d^Aw) \\ 
+        &= \d ( \omega \otimes \eta)(v \otimes w) - \omega\otimes \eta(d^Av \otimes w) - \omega\otimes \eta(v \otimes d^A w) \\ 
+    \end{align*}
+    Hence putting it all together for arbitrary elements 
+    \[ (d^{A^* \otimes A^*}g )(v,w) = \d(g(v,w)) - g(d^Av, w) - g(v, d^A w)\]
+\end{example}
+
+\subsubsection{Pullback Bundle}
+Let $\pi: E \to B$ be a vector bundle. 
+If $\gamma: B' \to B$ and we have a connection on $B$, then the pulled back connection will act on the pullback bundle 
+$\gamma^*E$ as follows on local trivializations
+\[ d^{\gamma^*A}s = e_j \otimes( \d s^j + (\gamma^* A)^j_i s^i) \]
+for any section $s \in \gamma^*E$. This is possible since $A$ is a $GL(n)$ valued 1 form, hence we can pull back in the obvious manner. 
+\subsection{Connections on Vector Bundles with extra structure}
+\subsubsection{Connection on Tangent Bundles}
+One can choose the the trivialization such that with a choice of local coordinates,
+for any section $\sigma = \sigma^i \left( \pdv{}{x^i} \right)$ of the Tangent bundle 
+\[ d^{\mathcal{A}}\sigma = \left( \pdv{}{x^i} \right) \otimes (\d \sigma^i + \Gamma^j_{ik}\sigma^i\d x^k) \]
+
+\begin{definition}
+    The solder form $\theta$ is the $TM$ valued 1 form, that in a coordinate trivialization reads 
+    \[ \theta = \left( \pdv{}{x^i} \right) \otimes \d x^i\]
+\end{definition}
+
+\begin{definition}
+    The Torsion is defined as the covariant derivative of the solder form 
+\begin{align}
+     T &= d^{\mathcal{A}}\theta  = d^{\mathcal{A}}\left( \pdv{}{x^i} \right) \wedge \d x^i + \left(\pdv{}{x^i} \right) \otimes \d( \d x^i) \\
+     &= \left( \pdv{}{x^j} \right) \otimes (\Gamma^j_{ik} \d x^k \wedge \d x^i) \\
+\end{align}
+\end{definition}
+
+\section{Lie Derivative of Vector Fields }
+
+
+
+Lemma
+
+For a 1 form $\alpha$ and vector field $w$ we have 
+\[ \mathcal{L}_v \alpha_iw^i = \mathcal{L}_v w^i + \alpha_i(\mathcal{L}_vw)^i \]
+For any tensor we have 
+\[ \mathcal{L}_v(S\otimes T) = (\mathcal{L}_v(T)\otimes S + T\otimes \mathcal{L}_vS )\]
+\begin{proof}
+    pullback $\Phi^t$ commutes with contraction and with $\otimes$. Then use the ridnatry Leibnitz rule on 
+    components. 
+\end{proof}
+
+
+
+Corolloary
+For a vector field $w$ we have 
+\[ \mathcal{L}_vw = (v_i \pdv{w^i}{x^j} - w_j \pdv{v^i}{x^j} )\partial_{x_i}\]
+
+proof:
+
+By first part of Lemma, for any 1-form $alpha$ we have 
+\[ \mathcal{L}_v(\alpha_iw^i) = (\mathcal{L}_v\alpha)_i w^i + \alpha_i (\mathcal{L}_v w)^i \]
+so bei Lemma we ge t
+\[ v^j \pdv{\alpha_iw^i}{x^j} = (v^j \pdv{\alpha^i}{x^j} + \alpha^j\pdv{v_j}{x^i})w^i + \alpha_i (\mathcal{L}_v w)^i\]
+Hence 
+\[ v^jw^i \pdv{\alpha^i}{x^j} + v^j \alpha_i\pdv{w^i}{x^j} =  v^jw^i \pdv{\alpha^i}{x^j} + \alpha_jw^i \pdv{v^j}{x^i} + \alpha_i(\mathcal{L}_vw)^i \]
+Since this holds for all $\alpha$ we ge t
+\[ (\mathcal{L}_vw)^i = v^j \pdv{w^i}{x^j} - w^j\pdv{v^i}{x^j}\]
+
+Definition 
+the Lie bracket of $v$ and $w$ is 
+\[ [v,w] := \mathcal{L}_vw - \mathcal{L}_wv \]
+
+This operation makes the $\Gamma(TX)$ into a Lie algebra, ie a vector space equipped with a bilinear operation 
+\[ [v,v] = 0\]
+\[ [u, [v,w]] + [w,[u,v,]] + [v,[w,u]] = 0\]
+
+\begin{lemma}
+    If $F:X\to Y$ is a diffeomorphism then for any vector field $v$ ond Y and 
+    any tensor $T$ on $Y$, we have 
+    \[ F^*(\mathcal{L}_v T) = \mathcal{L}_{F^*v}(F^*T)\]
+\end{lemma}
+\begin{proof}
+   \[ F^*(\mathcal{L}_vT) = F^* \dv{}{t}|_{t=0} (\Phi^t)^* T = \dv{}{t} F^*(\Phi^t)^* T \]
+   \[  = \dv{}{t} F^*(\Phi^t)^* (F^*)^{-1} F^*T  = \dv{}{t} (F^{-1}\circ \Phi^t \circ F)^* F^*T\]
+   But now $F^{-1}\Phi^t F$ is a flow of $F^*v$ (it satisfies the ODE, $(F^*v)(p) = (D_{F(p)}F^{-1})_*v(F(p))$). 
+\end{proof}
+
+\section{Homotopy invariance of de Rham Cohomology}
+
+\begin{definition}
+    Given an $r$ form $\alpha$ and a vector field $v$, the $r-1$ form 
+    $\iota_v \alpha$ or is defined to be 
+    \[ v^j \alpha_{j, i_1, \dots i_{r-1}}\]
+\end{definition}
+The Lie Derivative and exterior derivative are related as follows 
+
+\begin{proposition}
+    Cartans magic formula. For a vecotr field $v$, r-form $\alpha$, we have 
+    \[ \mathcal{L}_v \alpha = d(\iota_v \alpha) + \iota_v d\alpha \]
+\end{proposition}
+
+Recall Proposition, if $F_0, F_1: X\to Y$, are homotopic, then the maps 
+$F_0^* ,F_1^*: H_{dR}^*(Y) \to H_{dR}^*(X)$ are equal. 
+\begin{proof}
+    Let $F:[0,1]\times X \to Y$ be the homotopy between them. Write $F_t$ for 
+    $F(t,-)$. Let $\i_t: X\to [0,1]\times X$ be the inclusion $x \mapsto (t,x)$. 
+    Note that $i_t = \Phi^t \circ i_0$ where $\Phi^t$ is the flow of $\delta_t$. 
+    Note $F_t = F\circ i_t$. For any form $\alpha$ on $Y$ we have 
+    \[ F^*_0 \alpha - F^*_1 \alpha = \int_0^1 \dv{}{t} F^*_t\alpha dt  \]
+    \[ \int_0^1 i^*_0 \dv{}{t} (\Phi^t)^* F^*\alpha dt  = i^*_0 \int_0^1(\Phi^t)^*\mathcal{L}_{\partial_t}(F^*\alpha) dt\]
+    Suppose now, that $\alpha$ is closed. By Cartans magic formula, we have 
+    \[ \mathcal{L}_{\partial_t}(F^*\alpha) = d(\iota_{\partial_t}F^*\alpha) = 0\]
+    So 
+    \[ F^*_0\alpha - F^*_1\alpha = i_0^* \int_0^1 (\Phi^t)^*d(\iota_{\partial_tF^* \alpha}) dt \]
+    \[ = \int0^1 i^*_t d(\iota_{\partial_tF^* \alpha}) dt = \d ( \int0^1 i^*_t \iota_{\partial_tF^* \alpha} dt) \] 
+    So $F^*_1\alpha - F^*_0\alpha$ is exact. 
+
+
+\end{proof}
+
+
+\appendix
+
+
+
+
+
+
+\end{document}
